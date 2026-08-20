@@ -86,13 +86,13 @@ export default function Header() {
           })}
           <li className="nav-links-cta">
             <Link to="/contact" className="btn btn-gradient" onClick={closeMenu}>
-              Start a project →
+              Get a Free Quote →
             </Link>
           </li>
         </ul>
 
         <Link to="/contact" className="btn btn-gradient nav-cta">
-          Start a project
+          Get a Free Quote
         </Link>
 
         <button
