@@ -1,0 +1,61 @@
+# Codestroom — AI & IT Solutions Directory
+
+> Codestroom is an international IT engineering, AI solutions, custom software development, and performance digital marketing agency operating across India, Canada, the USA, and Europe.
+
+## Overview
+- **Company**: Codestroom
+- **Website**: https://codestroom.com
+- **Core Focus**: Artificial Intelligence (AI) Systems, Enterprise Web & Mobile Development, Custom Software Engineering, Cloud Backend Architecture, E-Commerce Stores, and High-ROAS Digital Marketing.
+- **Contact Email**: contact@codestroom.com
+- **Phone Numbers**: +91 94645 29126, +91 79739 37507
+- **Global Presence**: India (HQ & Engineering Hub), Canada, USA, Europe.
+
+## Core Capabilities & Services
+
+### 1. AI Services & Enterprise Intelligence
+- **URL**: https://codestroom.com/services/ai-solutions
+- **Specializations**: Large Language Models (LLMs), Custom Autonomous AI Agents, Retrieval-Augmented Generation (RAG), Vector Search, Computer Vision (YOLOv8, OpenCV), Predictive Analytics & Machine Learning, Private On-Premise / VPC Model Fine-Tuning.
+- **Key Frameworks**: PyTorch, LangChain, LangGraph, LlamaIndex, Qdrant, Pinecone, vLLM, TensorRT-LLM, AWS Bedrock, Azure AI.
+
+### 2. Modern Web Development
+- **URL**: https://codestroom.com/services/web-development
+- **Specializations**: High-performance single-page & server-rendered applications, progressive web apps (PWAs), enterprise portals, custom CMS solutions.
+- **Key Frameworks**: React 19, Next.js 15, Angular 18+, TypeScript, WordPress & Gutenberg Blocks, Vanilla Modern CSS, Tailwind CSS, Three.js 3D WebGL.
+
+### 3. Custom Software Development
+- **URL**: https://codestroom.com/services/custom-software
+- **Specializations**: Multi-tenant SaaS platforms, bespoke ERP/CRM systems, cloud microservices, workflow automation, legacy system modernization.
+- **Key Frameworks**: Python, Go, Node.js, Docker, Kubernetes, PostgreSQL, Kafka, RabbitMQ, Redis, AWS, GCP, Azure.
+
+### 4. Mobile App Development
+- **URL**: https://codestroom.com/services/mobile-apps
+- **Specializations**: Cross-platform & native mobile apps for iOS and Android, offline-first architecture, hardware peripheral integration (BLE, GPS, Biometrics), in-app subscriptions, App Store / Google Play publishing.
+- **Key Frameworks**: Flutter (Dart), React Native (Expo EAS), Swift / SwiftUI (iOS Native), Kotlin / Jetpack Compose (Android Native), Firebase, Supabase.
+
+### 5. Backend Development & Cloud APIs
+- **URL**: https://codestroom.com/services/backend-development
+- **Specializations**: Sub-50ms REST & GraphQL APIs, asynchronous microservices, database query optimization, WebSocket real-time feeds, OWASP Top 10 security compliance.
+- **Key Frameworks**: FastAPI (Python 3.12+), Node.js / Express / NestJS, Java Spring Boot 3, PostgreSQL, Redis, ClickHouse, Docker, CI/CD.
+
+### 6. E-Commerce Solutions
+- **URL**: https://codestroom.com/services/ecommerce
+- **Specializations**: Custom Shopify Plus & WooCommerce themes, Headless Next.js Commerce, conversion rate optimization (CRO), multi-currency global checkout, ERP inventory synchronization.
+- **Key Frameworks**: Shopify Liquid & Hydrogen, WooCommerce, Stripe, Medusa.js, Klaviyo, Algolia.
+
+### 7. Digital Marketing & Performance Growth
+- **URL**: https://codestroom.com/services/digital-marketing
+- **Specializations**: Technical & Local SEO, Google Ads (Search, Shopping, Performance Max), Meta Ads (Facebook & Instagram), Social Media Management, Server-Side Tracking (CAPI / GA4), Conversion Funnels.
+- **Key Frameworks**: Ahrefs, SEMrush, Google Tag Manager, Looker Studio, Meta Conversions API.
+
+### 8. Creative Design, Video Editing & Brand Identity
+- **URL**: https://codestroom.com/services/creative-design
+- **Specializations**: Cinematic short-form video editing (Reels/TikTok/Shorts), vector logo suites & brand books, high-converting ad creatives, Figma UI/UX design systems.
+- **Key Tools**: Adobe Premiere Pro, After Effects, DaVinci Resolve, Adobe Illustrator, Figma, Blender 3D.
+
+## Navigation & Site Map
+- Home: https://codestroom.com/
+- Services Directory: https://codestroom.com/services
+- Global Reach: https://codestroom.com/global-reach
+- Execution Process: https://codestroom.com/process
+- Case Studies & Work: https://codestroom.com/work
+- Contact & Inquiries: https://codestroom.com/contact

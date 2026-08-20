@@ -1,0 +1,46 @@
+# Allow all standard web search crawlers
+User-agent: *
+Allow: /
+
+# Allow AI crawlers for indexing and LLM discovery
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemaps & LLMs documentation
+Sitemap: https://codestroom.com/sitemap.xml
+# LLMs Text Manifest
+# https://codestroom.com/llms.txt
+# https://codestroom.com/llms-full.txt

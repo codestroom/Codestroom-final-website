@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Don't rewrite requests for files/directories that actually exist
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Don't rewrite requests that look like static assets (missing files of
+  # these types should 404 normally, not silently fall back to index.html —
+  # otherwise CDN/image-optimizer layers can choke trying to process HTML
+  # returned for what looks like an image/script/etc. request)
+  RewriteCond %{REQUEST_URI} !\.(?:js|mjs|css|map|png|jpe?g|gif|svg|webp|avif|ico|woff2?|ttf|eot|json|txt|xml)$ [NC]
+
+  # Everything else falls back to index.html so React Router can handle the route
+  RewriteRule . /index.html [L]
+</IfModule>
