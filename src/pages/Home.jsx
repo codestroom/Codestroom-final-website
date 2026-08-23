@@ -25,10 +25,9 @@ export default function Home() {
   return (
     <>
       <SEOHead
-        title="Codestroom — AI Services, IT Solutions, Web & Mobile App Development"
-        description="Codestroom delivers enterprise AI systems, full-stack web development (React, Angular, Next.js, WordPress), mobile apps (Flutter, React Native, iOS, Android), custom software, backend cloud APIs (FastAPI, Node, Spring Boot), and performance digital marketing."
+        title="Codestroom — Digital Marketing & Web Development Agency"
+        description="Codestroom offers AI systems, web & mobile app development, and digital marketing services for businesses across India, USA, Canada & Europe."
         canonicalPath="/"
-        keywords="AI services, web development React, Angular, WordPress, mobile app Flutter, React Native, custom software, backend FastAPI, Node.js, Spring Boot, ecommerce, digital marketing, IT company"
         schemas={[homeWebSiteSchema]}
       />
       {/* Hero Section preserved intact as requested */}
