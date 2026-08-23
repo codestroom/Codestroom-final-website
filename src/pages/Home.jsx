@@ -15,7 +15,7 @@ const homeWebSiteSchema = {
   '@id': 'https://codestroom.com/#website',
   url: 'https://codestroom.com',
   name: 'Codestroom',
-  description: 'AI Services, IT Solutions, Full-Stack Web Development, Mobile Apps & Performance Marketing',
+  description: 'IT & Digital Marketing Agency — AI Services, Full-Stack Web Development, Mobile Apps & Performance Marketing',
   publisher: {
     '@id': 'https://codestroom.com/#organization'
   }
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
       <SEOHead
-        title="Codestroom — Digital Marketing & Web Development Agency"
+        title="Codestroom — IT & Digital Marketing Agency"
         description="Codestroom offers AI systems, web & mobile app development, and digital marketing services for businesses across India, USA, Canada & Europe."
         canonicalPath="/"
         schemas={[homeWebSiteSchema]}

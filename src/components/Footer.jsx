@@ -12,7 +12,7 @@ export default function Footer() {
               Codestroom
             </Link>
             <p>
-              An international digital engineering &amp; IT company — architecting next-gen AI solutions, custom software, full-stack web/mobile apps, and high-ROAS marketing campaigns across India, Canada, USA, and Europe.
+              An international IT &amp; Digital Marketing agency — architecting next-gen AI solutions, custom software, full-stack web/mobile apps, and high-ROAS marketing campaigns across India, Canada, USA, and Europe.
             </p>
           </div>
 

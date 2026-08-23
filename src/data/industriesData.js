@@ -1,6 +1,7 @@
 export const INDUSTRIES_DATA = {
   restaurants: {
     slug: 'restaurants',
+    blogSlug: 'restaurant-marketing-beyond-delivery-apps',
     name: 'Restaurants',
     title: 'Digital Marketing for Restaurants',
     description:
@@ -42,6 +43,7 @@ export const INDUSTRIES_DATA = {
   },
   'religious-organizations': {
     slug: 'religious-organizations',
+    blogSlug: 'getting-found-online-place-of-worship',
     name: 'Religious Organizations',
     title: 'Websites for Religious Organizations',
     description:
@@ -82,6 +84,7 @@ export const INDUSTRIES_DATA = {
   },
   ecommerce: {
     slug: 'ecommerce',
+    blogSlug: 'cart-abandonment-fixes-that-actually-move-the-needle',
     name: 'E-Commerce Brands',
     title: 'SEO & Marketing for E-Commerce Stores',
     description:
@@ -122,6 +125,7 @@ export const INDUSTRIES_DATA = {
   },
   startups: {
     slug: 'startups',
+    blogSlug: 'marketing-sequence-for-early-stage-founders',
     name: 'Startups & Entrepreneurs',
     title: 'Digital Marketing for Startups',
     description:
@@ -162,6 +166,7 @@ export const INDUSTRIES_DATA = {
   },
   'political-campaigns': {
     slug: 'political-campaigns',
+    blogSlug: 'digital-presence-between-elections',
     name: 'Political Campaigns & Public Leaders',
     title: 'Digital Marketing for Political Campaigns',
     description:

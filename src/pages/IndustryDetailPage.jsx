@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { INDUSTRIES_DATA } from '../data/industriesData';
+import { getBlogPost } from '../data/blogData';
 import SEOHead from '../components/SEOHead';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
@@ -18,6 +19,8 @@ export default function IndustryDetailPage() {
   if (!industry) {
     return <Navigate to="/work" replace />;
   }
+
+  const relatedPost = industry.blogSlug ? getBlogPost(industry.blogSlug) : null;
 
   const industrySchema = {
     '@context': 'https://schema.org',
@@ -105,6 +108,37 @@ export default function IndustryDetailPage() {
           </div>
         </div>
       </section>
+
+      {relatedPost && (
+        <section className="post-more">
+          <div className="wrap">
+            <Reveal className="section-head">
+              <span className="kicker">From the blog</span>
+              <h2>Related reading.</h2>
+            </Reveal>
+            <div className="blog-grid">
+              <Reveal as="article" className="blog-card">
+                <div className={`blog-card-band ${relatedPost.tint}`} aria-hidden="true"></div>
+                <div className="blog-card-body">
+                  <div className="blog-card-meta">
+                    <span className="blog-card-cat">{relatedPost.category}</span>
+                    <span>{relatedPost.readTime}</span>
+                  </div>
+                  <h3>
+                    <Link to={`/blog/${relatedPost.slug}`}>{relatedPost.title}</Link>
+                  </h3>
+                  <p>{relatedPost.excerpt}</p>
+                  <div className="blog-card-foot">
+                    <Link to={`/blog/${relatedPost.slug}`} className="case-card-link">
+                      Read →
+                    </Link>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
 
       {industry.faqs && industry.faqs.length > 0 && (
         <section className="funky-faq-section">

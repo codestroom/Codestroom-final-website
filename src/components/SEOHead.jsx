@@ -72,7 +72,7 @@ export default function SEOHead({
       name: 'Codestroom',
       url: 'https://codestroom.com',
       logo: 'https://codestroom.com/assets/logo.png',
-      description: 'International AI, IT Services, Web & Mobile App Development, and Performance Marketing Company.',
+      description: 'International IT & Digital Marketing Agency — AI systems, web & mobile app development, and performance marketing.',
       email: 'contact@codestroom.com',
       telephone: '+919464529126',
       sameAs: [

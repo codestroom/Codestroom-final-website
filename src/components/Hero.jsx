@@ -12,16 +12,16 @@ export default function Hero() {
       <div className="wrap hero-grid">
         <div>
           <Reveal as="span" immediate className="eyebrow">
-            <span className="dot"></span>Digital Marketing, For Practically Everybody
+            <span className="dot"></span>IT &amp; Digital Marketing, For Practically Everybody
           </Reveal>
           <Reveal as="h1" immediate>
-            Marketing for absolutely <span className="grad">everybody.</span>
+            IT &amp; Marketing for absolutely <span className="grad">everybody.</span>
           </Reveal>
           <Reveal as="p" immediate className="lead">
             Restaurants. Religious organizations. Entrepreneurs. Public leaders. E-commerce
-            brands. If you've got an audience to reach, we've probably marketed to something
-            like it — across India, Canada, the USA and Europe, with one team behind every
-            campaign.
+            brands. If you've got an audience to reach — or a website, app or system to build
+            for them — we've probably done something like it, across India, Canada, the USA
+            and Europe, with one team behind every project.
           </Reveal>
           <Reveal as="div" immediate className="hero-ctas">
             <Link to="/contact" className="btn btn-primary">

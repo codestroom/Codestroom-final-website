@@ -15,7 +15,7 @@ function renderAt(path) {
 describe('routing', () => {
   it('renders the home page at /, including the strategy mix slider', () => {
     renderAt('/');
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Marketing for absolutely everybody.');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('IT & Marketing for absolutely everybody.');
     expect(screen.getByText('Drag to find your marketing mix. No math required.')).toBeInTheDocument();
   });
 
