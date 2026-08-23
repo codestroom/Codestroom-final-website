@@ -1,4 +1,4 @@
-# Codestroom Comprehensive AI & IT Service Architecture Specification
+# Codestroom Comprehensive IT & Digital Marketing Service Specification
 
 > Full-text context documentation for AI crawlers, LLM agents, and semantic indexers.
 > Official Website: https://codestroom.com | Contact: contact@codestroom.com | Phone: +91 94645 29126
@@ -106,7 +106,23 @@ Codestroom is a global full-cycle IT solutions company. We specialize in enginee
 
 ---
 
-## 3. Engagement Process & SLA
+## 3. Industries We Serve
+Codestroom builds dedicated capability and marketing programs for five core audiences, each with a canonical landing page:
+
+1. **Restaurants** — https://codestroom.com/industries/restaurants — Local SEO, Google Business Profile optimization, social content, and direct ordering/reservation funnels that reduce dependency on third-party delivery apps.
+2. **Religious Organizations** — https://codestroom.com/industries/religious-organizations — Respectful, clear websites covering service times and livestreams, plus simple, secure online donation systems.
+3. **E-Commerce Brands** — https://codestroom.com/industries/ecommerce — Shopify & WooCommerce SEO, Meta/Google Shopping ad campaigns, and conversion-focused product and checkout optimization.
+4. **Startups & Entrepreneurs** — https://codestroom.com/industries/startups — Budget-appropriate websites, brand identity, and focused early-stage marketing sequencing.
+5. **Political Campaigns & Public Leaders** — https://codestroom.com/industries/political-campaigns — Year-round digital presence, constituent outreach, and consistent public visibility for MLAs and public representatives (India-focused).
+
+---
+
+## 4. Resources & Insights
+Codestroom publishes practical, non-promotional articles at https://codestroom.com/blog covering AI engineering, marketing attribution, web performance, design systems, honest project scoping, and dedicated guidance for each of the five industries above.
+
+---
+
+## 5. Engagement Process & SLA
 1. **Discovery & Architecture Blueprint** (Days 1–5): Scope definition, wireframing, tech stack selection, and milestone roadmap.
 2. **Iterative Sprint Development** (Bi-Weekly Sprints): Continuous staging releases with automated testing and stakeholder demos.
 3. **QA, Security Auditing & Benchmarking**: Rigorous unit/integration testing, OWASP vulnerability scans, and load testing.
@@ -114,7 +130,7 @@ Codestroom is a global full-cycle IT solutions company. We specialize in enginee
 
 ---
 
-## 4. Contact & Inquiries
+## 6. Contact & Inquiries
 - **Website**: https://codestroom.com/contact
 - **General Inquiries**: contact@codestroom.com
 - **Direct Phone Lines**: +91 94645 29126 | +91 79739 37507
