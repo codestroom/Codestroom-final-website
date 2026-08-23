@@ -6,7 +6,7 @@ export default function Work() {
       <div className="wrap">
         <Reveal className="section-head">
           <span className="kicker">Industries we serve</span>
-          <h2>Built for the businesses and people who serve their communities.</h2>
+          <h1>Built for the businesses and people who serve their communities.</h1>
           <p>From restaurant tables to online storefronts to public offices — a look at who we work with and how we help them grow.</p>
         </Reveal>
         <div className="work-grid">

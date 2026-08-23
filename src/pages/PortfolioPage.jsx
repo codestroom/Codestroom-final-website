@@ -35,7 +35,6 @@ export default function PortfolioPage() {
         title="Portfolio | Codestroom"
         description="What Codestroom is built to deliver: AI agents, web and SaaS platforms, mobile apps, e-commerce builds and marketing programmes."
         canonicalPath="/portfolio"
-        keywords="software capabilities, AI development, web development, mobile app development, ecommerce development, digital marketing"
         schemas={[portfolioSchema]}
       />
 

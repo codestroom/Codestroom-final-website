@@ -28,7 +28,7 @@ export default function Services() {
       <div className="wrap">
         <Reveal className="section-head">
           <span className="kicker">What we do</span>
-          <h2>One team, every channel your business needs.</h2>
+          <h1>One team, every channel your business needs.</h1>
           <p>
             From autonomous AI agents and enterprise cloud architecture to full-stack engineering, high-ROAS marketing, and creative design — we run the full digital and IT stack under one roof.
           </p>

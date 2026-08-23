@@ -8,13 +8,14 @@ export default function SEOHead({
   title,
   description,
   canonicalPath = '',
-  keywords = '',
   ogType = 'website',
   ogImage = DEFAULT_IMAGE,
-  schemas = []
+  schemas = [],
+  noindex = false
 }) {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-  const canonicalUrl = `${BASE_URL}${canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`}`.replace(/\/+$/, '') || BASE_URL;
+  const normalizedPath = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+  const canonicalUrl = normalizedPath === '/' ? `${BASE_URL}/` : `${BASE_URL}${normalizedPath.replace(/\/+$/, '')}` || BASE_URL;
 
   useEffect(() => {
     // 1. Update Title
@@ -34,10 +35,11 @@ export default function SEOHead({
 
     // 2. Set Standard Meta Tags
     setMetaTag('name', 'description', description);
-    if (keywords) {
-      setMetaTag('name', 'keywords', keywords);
-    }
-    setMetaTag('name', 'robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+    setMetaTag(
+      'name',
+      'robots',
+      noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+    );
 
     // 3. Set Canonical Link
     let linkCanonical = document.querySelector('link[rel="canonical"]');
@@ -97,7 +99,7 @@ export default function SEOHead({
     return () => {
       // Optional cleanup on unmount
     };
-  }, [fullTitle, description, canonicalUrl, keywords, ogType, ogImage, schemas]);
+  }, [fullTitle, description, canonicalUrl, ogType, ogImage, schemas, noindex]);
 
   return null;
 }

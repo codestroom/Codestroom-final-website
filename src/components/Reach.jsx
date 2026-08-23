@@ -23,7 +23,7 @@ export default function Reach() {
               <span className="kicker" style={{ color: '#FF8FC4' }}>
                 Where we work
               </span>
-              <h2>Local insight, wherever your audience hangs out.</h2>
+              <h1>Local insight, wherever your audience hangs out.</h1>
               <p>
                 Codestroom works with restaurants, religious organizations, entrepreneurs,
                 public leaders and e-commerce brands across India, Canada, the USA and Europe —

@@ -6,8 +6,8 @@ export default function WorkPage() {
   return (
     <>
       <SEOHead
-        title="Client Portfolio & Case Studies | Codestroom"
-        description="Explore our proven track record: real client case studies and measurable outcomes across AI systems, SaaS portals, mobile applications, and high-ROAS marketing."
+        title="Who We Work With — Industries We Serve | Codestroom"
+        description="See how Codestroom supports restaurants, e-commerce brands, entrepreneurs and public leaders — the industries we work with and how each one grows."
         canonicalPath="/work"
         keywords="case studies, software portfolio, client results, AI projects, web development work, mobile app portfolio"
       />

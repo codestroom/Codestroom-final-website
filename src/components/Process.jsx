@@ -102,7 +102,7 @@ export default function Process() {
       <div className="wrap">
         <Reveal className="section-head">
           <span className="kicker">How we work</span>
-          <h2>One engagement, four checkpoints.</h2>
+          <h1>One engagement, four checkpoints.</h1>
           <p>
             Every campaign runs through the same disciplined loop — no mystery, no ghosting, no
             "let's circle back next quarter." Scroll down. Watch the route light up.

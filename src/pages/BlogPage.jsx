@@ -45,7 +45,6 @@ export default function BlogPage() {
         title="Blog — Notes on AI, Engineering & Growth | Codestroom"
         description="Practical writing from the Codestroom team on retrieval-augmented AI, blended ROAS and attribution, design systems for small teams, honest project scoping and web performance."
         canonicalPath="/blog"
-        keywords="AI engineering blog, RAG best practices, blended ROAS, attribution, design systems, core web vitals, software estimation"
         schemas={[blogSchema]}
       />
 

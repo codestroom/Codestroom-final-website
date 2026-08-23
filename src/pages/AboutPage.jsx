@@ -8,6 +8,15 @@ import AboutTeam from '../components/about/AboutTeam';
 import AboutCulture from '../components/about/AboutCulture';
 import AboutFlags from '../components/about/AboutFlags';
 import CTA from '../components/CTA';
+import SEOHead from '../components/SEOHead';
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Codestroom',
+  url: 'https://codestroom.com/about',
+  description: 'Who Codestroom is: a digital marketing and web/app development agency serving restaurants, entrepreneurs and e-commerce brands across India, USA, Canada & Europe.'
+};
 
 export default function AboutPage() {
   useEffect(() => {
@@ -16,6 +25,12 @@ export default function AboutPage() {
 
   return (
     <div className="about-page">
+      <SEOHead
+        title="About Codestroom — Digital Marketing Agency"
+        description="Meet Codestroom, a digital marketing & web development agency serving restaurants, entrepreneurs and e-commerce brands across India, USA, Canada & Europe."
+        canonicalPath="/about"
+        schemas={[aboutPageSchema]}
+      />
       <AboutHero />
       <AboutMarquee />
       <AboutStats />

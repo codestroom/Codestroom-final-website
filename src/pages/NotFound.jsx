@@ -7,7 +7,7 @@ export default function NotFound() {
       <SEOHead
         title="Page Not Found (404) | Codestroom"
         description="The page you requested could not be found. Explore our AI and IT services or return to the homepage."
-        canonicalPath="/404"
+        noindex
       />
       <div className="wrap" style={{ textAlign: 'center', padding: '80px 0' }}>
         <span className="kicker">404</span>

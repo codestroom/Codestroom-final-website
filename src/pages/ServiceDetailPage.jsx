@@ -94,7 +94,6 @@ export default function ServiceDetailPage() {
         title={service.title}
         description={service.tagline || service.overview}
         canonicalPath={`/services/${service.slug}`}
-        keywords={`${service.title}, ${service.category}, ${service.coreTechnologies.map((t) => t.name).join(', ')}, IT services`}
         schemas={[serviceSchema, faqSchema, breadcrumbSchema].filter(Boolean)}
       />
 

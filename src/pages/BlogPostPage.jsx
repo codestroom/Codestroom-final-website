@@ -51,7 +51,6 @@ export default function BlogPostPage() {
         title={`${post.title} | Codestroom Blog`}
         description={post.excerpt}
         canonicalPath={`/blog/${post.slug}`}
-        keywords={post.tags.join(', ')}
         ogType="article"
         schemas={[schema]}
       />

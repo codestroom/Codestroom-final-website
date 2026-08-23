@@ -9,7 +9,6 @@ export default function ProcessPage() {
         title="Our Engineering & Delivery Process | Codestroom"
         description="Learn how Codestroom delivers software projects from initial discovery, architectural blueprints, iterative sprint development, through automated QA and cloud launch."
         canonicalPath="/process"
-        keywords="software development process, agile delivery sprint methodology, cloud architecture lifecycle, QA testing, DevOps deployment"
       />
       <Process />
       <CTA />

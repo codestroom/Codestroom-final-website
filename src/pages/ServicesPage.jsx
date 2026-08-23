@@ -23,7 +23,6 @@ export default function ServicesPage() {
         title="Comprehensive IT & AI Services Directory | Codestroom"
         description="Explore our full engineering catalog: AI & LLMs, Web Development (React/Angular/WordPress), Custom Software, Mobile Apps (Flutter/React Native), Backend APIs (FastAPI/Node/Spring), E-Commerce & Growth Marketing."
         canonicalPath="/services"
-        keywords="IT services, AI development, custom software, web development, mobile app development, backend APIs, ecommerce solutions, digital marketing agency"
         schemas={[servicesCatalogSchema]}
       />
       <Services />

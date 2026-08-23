@@ -24,7 +24,6 @@ export default function ContactPage() {
         title="Contact Us & Request a Project Scope | Codestroom"
         description="Ready to build something extraordinary? Contact the Codestroom team for architectural scoping, project timeline estimates, and strategic consultation."
         canonicalPath="/contact"
-        keywords="contact Codestroom, hire software engineers, request project quote, AI consultation, mobile app development inquiry"
         schemas={[contactPageSchema]}
       />
       <ContactHero />
