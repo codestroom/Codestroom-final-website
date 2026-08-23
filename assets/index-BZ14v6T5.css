@@ -663,6 +663,7 @@ section{ padding: 120px 0; }
   gap: 60px;
   align-items: center;
 }
+.reach h1,
 .reach h2{
   font-size: clamp(28px,3.2vw,38px);
   font-weight: 700;
