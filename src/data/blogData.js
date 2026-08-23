@@ -307,6 +307,175 @@ export const BLOG_POSTS = [
       },
     ],
   },
+  {
+    slug: 'restaurant-marketing-beyond-delivery-apps',
+    title: 'The restaurant marketing checklist that has nothing to do with delivery apps',
+    category: 'Marketing',
+    date: '2026-08-05',
+    readTime: '6 min read',
+    author: 'Codestroom Growth',
+    tint: 'grad-1',
+    featured: false,
+    excerpt:
+      'Swiggy and Zomato get you discovered once. Local SEO, a real website and a review flow are what get you chosen every time after that.',
+    tags: ['Restaurants', 'Local SEO', 'Marketing'],
+    body: [
+      {
+        type: 'p',
+        text: 'Ask a restaurant owner what their marketing plan is and most say the same thing: "we\'re on Swiggy and Zomato." That is not a marketing plan, it is a distribution deal — one that takes a cut of every order and puts a competitor\'s menu one tap away from yours. The channels that actually build a restaurant\'s reputation over time live outside those apps.',
+      },
+      { type: 'h2', text: 'Your Google Business Profile is doing more work than your menu' },
+      {
+        type: 'p',
+        text: 'When someone searches "restaurant near me" or the name of a dish, Google Business Profile is usually the first thing they see — before your website, before a delivery app listing. Most restaurants set it up once and never touch it again.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Real photos, updated seasonally — not the stock shots from your delivery-app listing.',
+          'Accurate hours, including holiday hours; nothing loses trust faster than a "closed" sign at the door of an "open" listing.',
+          'Posts for offers, events or new dishes — Google rewards profiles that stay active.',
+          'The Q&A section, answered by you before a stranger answers it incorrectly.',
+        ],
+      },
+      { type: 'h2', text: 'Reviews compound — respond to all of them' },
+      {
+        type: 'p',
+        text: 'A five-star average with three reviews reads as luck. A four-point-six average with three hundred reviews reads as trust. Volume matters as much as score, and so does your response — replying to a bad review calmly, in public, does more for a hesitant new customer than the review itself.',
+      },
+      { type: 'h2', text: 'Own at least one direct order channel' },
+      {
+        type: 'p',
+        text: "You do not need to leave delivery apps — they bring real discovery. But if every order runs through them, you are renting your customer relationship. A simple ordering flow on your own site, even for pickup only, gives you a channel where a repeat customer costs you nothing extra to serve.",
+      },
+      {
+        type: 'quote',
+        text: 'Delivery apps are a discovery channel, not a retention strategy. Retention has to live somewhere you own.',
+      },
+      {
+        type: 'p',
+        text: 'None of this requires a big budget or a rebrand. It requires someone to actually maintain the unglamorous basics — which is most of what local SEO for restaurants actually is.',
+      },
+      {
+        type: 'cta',
+        text: 'This is the exact work we do for restaurant clients.',
+        to: '/industries/restaurants',
+        label: 'See how we approach restaurant marketing',
+      },
+    ],
+  },
+  {
+    slug: 'marketing-sequence-for-early-stage-founders',
+    title: 'The marketing sequence we tell early-stage founders to follow',
+    category: 'Business',
+    date: '2026-08-14',
+    readTime: '6 min read',
+    author: 'Codestroom',
+    tint: 'grad-2',
+    featured: false,
+    excerpt:
+      'Most founders ask which channel to try first. That is the wrong question — the right one is what you need to prove first, and the channel follows from that.',
+    tags: ['Startups', 'Marketing', 'Strategy'],
+    body: [
+      {
+        type: 'p',
+        text: 'Almost every early-stage founder who talks to us opens with a channel question: should we do SEO, paid ads, or social first? It is the wrong first question. The right one is what you actually need to prove at your current stage — and the channel falls out of that, not the other way round.',
+      },
+      { type: 'h2', text: 'Stage one: can anyone find you and understand you in ten seconds?' },
+      {
+        type: 'p',
+        text: 'Before spending a rupee or a dollar on acquisition, a stranger needs to land on your site and understand what you do, who it is for, and what to do next — inside ten seconds. A surprising number of early-stage sites fail this test. Fix the site before you fund traffic to it.',
+      },
+      { type: 'h2', text: 'Stage two: prove one channel, not five' },
+      {
+        type: 'p',
+        text: 'Founders often spread a thin budget across SEO, ads and social simultaneously, and end up with weak signal on all three. Pick the one channel most aligned with how your actual customers search or discover things, fund it properly, and get a real read before touching the next one.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'High-intent, search-driven purchase → start with SEO and paid search, not social.',
+          'Visual product, impulse-driven purchase → start with social and content, not search.',
+          'Long sales cycle, few large customers → start with direct outreach and a sharp landing page, not broad ads.',
+        ],
+      },
+      { type: 'h2', text: 'Stage three: only then does brand work start paying off' },
+      {
+        type: 'p',
+        text: 'Brand identity and content marketing compound over months, not weeks. They are worth investing in — but after you have a working acquisition channel, not instead of one. Spending an early-stage budget on brand before you have proven a channel is the most common early-stage marketing mistake we see.',
+      },
+      {
+        type: 'quote',
+        text: "The question is never 'which channel is best'. It's 'what do we need to prove right now, and which channel proves it fastest'.",
+      },
+      {
+        type: 'p',
+        text: 'This sequencing conversation is usually the most valuable hour we spend with an early-stage founder — often before any work has actually started.',
+      },
+      {
+        type: 'cta',
+        text: 'This is exactly the conversation we start with for early-stage clients.',
+        to: '/industries/startups',
+        label: 'See how we work with startups',
+      },
+    ],
+  },
+  {
+    slug: 'cart-abandonment-fixes-that-actually-move-the-needle',
+    title: 'The cart abandonment fixes that actually move the needle',
+    category: 'Marketing',
+    date: '2026-08-23',
+    readTime: '6 min read',
+    author: 'Codestroom Growth',
+    tint: 'grad-3',
+    featured: false,
+    excerpt:
+      'Most abandoned-cart emails are theater. Here is the shortlist of fixes that changes the actual number, not just the dashboard.',
+    tags: ['E-Commerce', 'Conversion', 'Shopify'],
+    body: [
+      {
+        type: 'p',
+        text: 'Most stores treat cart abandonment as an email problem: turn on the default three-email sequence and move on. That sequence helps, but it is recovering carts after the real damage is already done. The bigger wins are upstream, at checkout itself.',
+      },
+      { type: 'h2', text: 'Checkout friction is the first thing to audit' },
+      {
+        type: 'p',
+        text: 'Forced account creation, hidden shipping costs revealed only at the last step, and a checkout that takes more than three or four screens are the three most common causes of abandonment we find when we audit a store — and all three are fixable without touching marketing spend at all.',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Offer guest checkout as the default, not an easy-to-miss link.',
+          'Show shipping cost and estimated delivery before the final payment step, not after.',
+          'Cut the checkout to the fewest screens your platform allows — every extra step loses a real percentage of buyers.',
+          'Make payment methods match how your actual customers pay, not just what is easiest to integrate.',
+        ],
+      },
+      { type: 'h2', text: 'Then, and only then, the recovery sequence' },
+      {
+        type: 'p',
+        text: 'Once checkout friction is fixed, an abandoned-cart flow is worth running — but the timing and content matter more than most stores realize. A first message within an hour recovers browsers who got distracted. A second message a day later, with a genuine reason to come back (not always a discount), recovers the more hesitant ones.',
+      },
+      {
+        type: 'p',
+        text: 'Discounting every abandoned cart trains your best customers to always wait for one. Reserve the discount for the final message, and let the earlier ones lead with product content, reviews or a direct answer to a likely objection instead.',
+      },
+      {
+        type: 'quote',
+        text: 'An abandoned-cart email cannot fix a checkout your customer already gave up on. Fix the checkout first.',
+      },
+      {
+        type: 'p',
+        text: 'Store owners chasing a better conversion rate almost always look at ad creative first. The fastest, cheapest wins are usually sitting in the checkout flow itself.',
+      },
+      {
+        type: 'cta',
+        text: 'This is the kind of audit we run for e-commerce clients.',
+        to: '/industries/ecommerce',
+        label: 'See how we work with e-commerce brands',
+      },
+    ],
+  },
 ];
 
 export function getBlogPost(slug) {

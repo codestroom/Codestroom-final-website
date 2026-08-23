@@ -17,6 +17,13 @@ function Block({ block }) {
       </ul>
     );
   }
+  if (block.type === 'cta') {
+    return (
+      <p>
+        {block.text} <Link to={block.to}>{block.label} →</Link>
+      </p>
+    );
+  }
   return <p>{block.text}</p>;
 }
 
