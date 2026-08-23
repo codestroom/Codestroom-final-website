@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Reveal from './Reveal';
 
 export default function Work() {
@@ -32,6 +33,9 @@ export default function Work() {
                 <div className="m-lbl">Delivery &amp; reservation funnels</div>
               </div>
             </div>
+            <Link to="/industries/restaurants" className="other-service-link">
+              Marketing for restaurants →
+            </Link>
           </Reveal>
           <Reveal as="div" className="work-card work-2">
             <span className="kicker">E-commerce</span>
@@ -68,6 +72,9 @@ export default function Work() {
                 <div className="m-lbl">Consistent public presence</div>
               </div>
             </div>
+            <Link to="/industries/religious-organizations" className="other-service-link">
+              Websites for religious organizations →
+            </Link>
           </Reveal>
         </div>
       </div>

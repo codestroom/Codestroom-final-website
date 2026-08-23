@@ -57,6 +57,20 @@ describe('routing', () => {
   });
 
   it.each([
+    ['/industries/restaurants', 'Get found by hungry people nearby.'],
+    ['/industries/religious-organizations', 'A digital home for your community.'],
+  ])('renders industry page %s', (path, heading) => {
+    const page = renderAt(path);
+    expect(page.getByRole('heading', { level: 1 })).toHaveTextContent(heading);
+    page.unmount();
+  });
+
+  it('redirects an unknown industry slug back to /work', () => {
+    renderAt('/industries/not-a-real-industry');
+    expect(screen.getByText('Built for the businesses and people who serve their communities.')).toBeInTheDocument();
+  });
+
+  it.each([
     ['/services/ai-solutions', 'AI Services & Enterprise Intelligence'],
     ['/services/web-development', 'Modern Web Development & Web Apps'],
     ['/services/custom-software', 'Custom Software Development'],

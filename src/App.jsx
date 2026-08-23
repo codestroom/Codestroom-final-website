@@ -8,6 +8,7 @@ import AboutPage from './pages/AboutPage';
 import GlobalReachPage from './pages/GlobalReachPage';
 import ProcessPage from './pages/ProcessPage';
 import WorkPage from './pages/WorkPage';
+import IndustryDetailPage from './pages/IndustryDetailPage';
 import PortfolioPage from './pages/PortfolioPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/global-reach" element={<GlobalReachPage />} />
         <Route path="/process" element={<ProcessPage />} />
         <Route path="/work" element={<WorkPage />} />
+        <Route path="/industries/:slug" element={<IndustryDetailPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />

@@ -83,6 +83,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://codestroom.com/industries/restaurants</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://codestroom.com/industries/religious-organizations</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://codestroom.com/contact</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
