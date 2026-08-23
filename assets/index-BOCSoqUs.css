@@ -966,6 +966,14 @@ section{ padding: 120px 0; }
 .work-card .metrics div{ display:flex; flex-direction:column; }
 .work-card .metrics .m-num{ font-family:'Space Grotesk',sans-serif; font-size: 24px; font-weight:700; }
 .work-card .metrics .m-lbl{ font-size: 12px; color: rgba(255,255,255,0.6); margin-top:2px; }
+.work-card .other-service-link{
+  position: relative; z-index: 1;
+  display: inline-block;
+  margin-top: 24px;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 @media (max-width: 900px){
   .work-grid{ grid-template-columns: 1fr; }
