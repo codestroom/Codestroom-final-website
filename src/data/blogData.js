@@ -476,6 +476,110 @@ export const BLOG_POSTS = [
       },
     ],
   },
+  {
+    slug: 'getting-found-online-place-of-worship',
+    title: 'How people actually search for a place to worship — and what your website needs to answer',
+    category: 'Marketing',
+    date: '2026-08-29',
+    readTime: '5 min read',
+    author: 'Codestroom',
+    tint: 'grad-1',
+    featured: false,
+    excerpt:
+      'Someone new to the area is searching right now. Whether they find you depends on a handful of details most religious-organization websites never get around to adding.',
+    tags: ['Religious Organizations', 'Local SEO', 'Websites'],
+    body: [
+      {
+        type: 'p',
+        text: 'Someone who has just moved to a new area, or is exploring faith for the first time, almost always starts the same way: a search on their phone. Whether your organization shows up in that search, and whether the page they land on actually answers their questions, decides whether they walk through the door.',
+      },
+      { type: 'h2', text: 'The basics that decide whether you show up at all' },
+      {
+        type: 'ul',
+        items: [
+          'A Google Business Profile with your correct name, address and category — inconsistent naming across listings quietly hurts how you rank.',
+          'Service or prayer timings kept current, including any seasonal or festival changes.',
+          'Photos of the actual space, not stock imagery — people decide whether a place feels right before they ever visit.',
+        ],
+      },
+      { type: 'h2', text: 'What a visitor actually needs before they show up in person' },
+      {
+        type: 'p',
+        text: 'Once someone finds you, the website needs to answer the practical questions they are too polite to call and ask: what time should I arrive, is there parking, what should I expect if this is my first visit, and is there a livestream if I cannot make it in person. A page that answers these clearly removes the single biggest barrier to a first visit — uncertainty.',
+      },
+      { type: 'h2', text: 'Donations deserve the same clarity as service times' },
+      {
+        type: 'p',
+        text: 'A donation form that is hard to find, or unclear about how funds are used and how a receipt works, quietly loses first-time givers. This does not need to be complicated — a simple, secure flow with a clear receipt process builds more trust than an elaborate one that is confusing to use.',
+      },
+      {
+        type: 'quote',
+        text: 'People do not distrust religious organizations online because of faith. They distrust unclear websites — the same as they would anywhere else.',
+      },
+      {
+        type: 'p',
+        text: 'None of this requires compromising how your community presents itself. It requires the same clarity online that your organization already offers in person.',
+      },
+      {
+        type: 'cta',
+        text: 'This is the exact work we do for religious organizations.',
+        to: '/industries/religious-organizations',
+        label: 'See how we approach this work',
+      },
+    ],
+  },
+  {
+    slug: 'digital-presence-between-elections',
+    title: 'The digital presence that matters between elections, not just during them',
+    category: 'Marketing',
+    date: '2026-09-05',
+    readTime: '6 min read',
+    author: 'Codestroom',
+    tint: 'grad-2',
+    featured: false,
+    excerpt:
+      'A campaign-season surge in social posts reads as opportunistic. The leaders constituents actually trust maintain a presence the other eleven months too.',
+    tags: ['Political Campaigns', 'Public Leaders', 'Digital Marketing'],
+    body: [
+      {
+        type: 'p',
+        text: 'Most political digital presence follows the same pattern: quiet for months, then a sudden flurry of posts as an election approaches. Constituents notice the pattern too, and it reads exactly as it looks — activity timed to a vote, not genuine engagement with the people being represented.',
+      },
+      { type: 'h2', text: 'What consistent presence actually looks like' },
+      {
+        type: 'ul',
+        items: [
+          'Regular, honest updates on constituency work — not just wins, but what is in progress.',
+          'A channel where constituents can actually reach you, and see that questions get answered.',
+          'Local visibility that holds up outside election season, not a website that goes quiet the day after results.',
+        ],
+      },
+      { type: 'h2', text: 'Own a channel you do not have to compete for' },
+      {
+        type: 'p',
+        text: 'Local media coverage is valuable but is not something you control — it depends on what else is happening that news cycle. A website and a direct channel like WhatsApp broadcasts or a regular newsletter are yours regardless of what else is in the news that week.',
+      },
+      { type: 'h2', text: 'Consistency is the actual credibility signal' },
+      {
+        type: 'p',
+        text: 'The specific platform matters less than most campaigns assume. What actually builds trust is the same activity, at the same quality, whether or not an election is close — because that is the difference between a leader who is present and one who is campaigning.',
+      },
+      {
+        type: 'quote',
+        text: 'Constituents cannot tell the difference between "busy governing" and "not paying attention" unless you show them the difference.',
+      },
+      {
+        type: 'p',
+        text: 'This is a longer, less glamorous strategy than a pre-election ad blitz. It is also the one that actually compounds.',
+      },
+      {
+        type: 'cta',
+        text: 'This is the kind of ongoing presence we build for public leaders.',
+        to: '/industries/political-campaigns',
+        label: 'See how we approach this work',
+      },
+    ],
+  },
 ];
 
 export function getBlogPost(slug) {
