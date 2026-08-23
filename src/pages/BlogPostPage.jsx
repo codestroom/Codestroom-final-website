@@ -103,9 +103,6 @@ export default function BlogPostPage() {
               <Link to="/contact" className="btn btn-gradient">
                 Talk it through →
               </Link>
-              <Link to="/case-studies" className="case-aside-mail">
-                See how it played out in practice →
-              </Link>
             </div>
           </aside>
         </div>

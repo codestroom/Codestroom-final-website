@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { to: '/services', label: 'Services', hasDropdown: true },
   { to: '/about', label: 'About Us' },
   { to: '/portfolio', label: 'Portfolio' },
-  { to: '/case-studies', label: 'Case Studies' },
   { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ];
