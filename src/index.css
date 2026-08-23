@@ -974,6 +974,14 @@ section{ padding: 120px 0; }
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.work-card-links{
+  position: relative; z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+.work-card-links .other-service-link{ margin-top: 0; }
 
 @media (max-width: 900px){
   .work-grid{ grid-template-columns: 1fr; }

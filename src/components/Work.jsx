@@ -54,6 +54,9 @@ export default function Work() {
                 <div className="m-lbl">Landing pages that convert</div>
               </div>
             </div>
+            <Link to="/industries/ecommerce" className="other-service-link">
+              Marketing for e-commerce stores →
+            </Link>
           </Reveal>
           <Reveal as="div" className="work-card work-3">
             <span className="kicker">Public Leaders &amp; Organizations</span>
@@ -72,9 +75,14 @@ export default function Work() {
                 <div className="m-lbl">Consistent public presence</div>
               </div>
             </div>
-            <Link to="/industries/religious-organizations" className="other-service-link">
-              Websites for religious organizations →
-            </Link>
+            <div className="work-card-links">
+              <Link to="/industries/religious-organizations" className="other-service-link">
+                Websites for religious organizations →
+              </Link>
+              <Link to="/industries/political-campaigns" className="other-service-link">
+                Marketing for political campaigns →
+              </Link>
+            </div>
           </Reveal>
         </div>
       </div>

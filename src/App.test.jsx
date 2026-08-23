@@ -59,6 +59,9 @@ describe('routing', () => {
   it.each([
     ['/industries/restaurants', 'Get found by hungry people nearby.'],
     ['/industries/religious-organizations', 'A digital home for your community.'],
+    ['/industries/ecommerce', 'Turn more browsers into buyers.'],
+    ['/industries/startups', 'Marketing that fits an early-stage budget.'],
+    ['/industries/political-campaigns', 'Build visibility people actually trust.'],
   ])('renders industry page %s', (path, heading) => {
     const page = renderAt(path);
     expect(page.getByRole('heading', { level: 1 })).toHaveTextContent(heading);

@@ -43,6 +43,7 @@ export default function Footer() {
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/process">Our Process</Link></li>
               <li><Link to="/global-reach">Global Reach</Link></li>
+              <li><Link to="/industries/startups">For Startups &amp; Entrepreneurs</Link></li>
               <li><Link to="/portfolio">Portfolio</Link></li>
               <li><Link to="/blog">Blog</Link></li>
               <li><a href="mailto:contact@codestroom.com">contact@codestroom.com</a></li>
