@@ -43,7 +43,7 @@ export default function BlogPage() {
     <>
       <SEOHead
         title="Blog — Notes on AI, Engineering & Growth | Codestroom"
-        description="Practical writing from the Codestroom team on retrieval-augmented AI, blended ROAS and attribution, design systems for small teams, honest project scoping and web performance."
+        description="Practical writing from the Codestroom team — AI engineering, marketing attribution, design systems, honest project scoping and web performance."
         canonicalPath="/blog"
         schemas={[blogSchema]}
       />

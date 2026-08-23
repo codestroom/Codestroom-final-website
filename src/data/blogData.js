@@ -16,7 +16,7 @@ export const BLOG_POSTS = [
     tint: 'grad-1',
     featured: true,
     excerpt:
-      'Chunk size is not your problem. After shipping five retrieval systems into production, the failures clustered around evaluation, metadata and the retrieval step nobody instruments.',
+      'Chunk size is not your problem. Across five retrieval builds, failures clustered around evaluation, metadata and the retrieval step nobody instruments.',
     tags: ['RAG', 'LLM', 'Architecture'],
     body: [
       {
@@ -76,7 +76,7 @@ export const BLOG_POSTS = [
     tint: 'grad-2',
     featured: false,
     excerpt:
-      'Meta claims the sale. Google claims the same sale. Your bank account disagrees with both. Here is the reporting setup we put in place before touching anyone’s budget.',
+      'Meta claims the sale. Google claims the same sale. Your bank account disagrees. Here is the reporting setup we use before touching anyone’s budget.',
     tags: ['Paid Media', 'Analytics', 'Attribution'],
     body: [
       {
@@ -178,7 +178,7 @@ export const BLOG_POSTS = [
     tint: 'grad-1',
     featured: false,
     excerpt:
-      'Most failed projects were mispriced before a line of code was written. A look at how we estimate, where estimates break, and what we tell clients when we genuinely do not know.',
+      'Most failed projects were mispriced before a line of code was written. How we estimate, where estimates break, and what we tell clients when we do not know.',
     tags: ['Delivery', 'Estimation', 'Client Work'],
     body: [
       {
@@ -271,7 +271,7 @@ export const BLOG_POSTS = [
     tint: 'grad-3',
     featured: false,
     excerpt:
-      'The honest version: agents are excellent at high-volume, low-stakes, well-documented tasks. Most of what gets pitched as an agent use case is none of those three.',
+      'The honest version: agents excel at high-volume, low-stakes, well-documented tasks. Most pitched agent use cases are none of those three.',
     tags: ['AI Agents', 'Automation', 'Operations'],
     body: [
       {
@@ -486,7 +486,7 @@ export const BLOG_POSTS = [
     tint: 'grad-1',
     featured: false,
     excerpt:
-      'Someone new to the area is searching right now. Whether they find you depends on a handful of details most religious-organization websites never get around to adding.',
+      'Someone new to the area is searching right now. Whether they find you depends on details most religious-organization websites never add.',
     tags: ['Religious Organizations', 'Local SEO', 'Websites'],
     body: [
       {

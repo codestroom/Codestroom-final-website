@@ -6,7 +6,7 @@ import { ALL_SERVICES } from '../data/servicesData';
 const servicesCatalogSchema = {
   '@context': 'https://schema.org',
   '@type': 'OfferCatalog',
-  name: 'Codestroom IT & AI Services Catalog',
+  name: 'Codestroom IT & Digital Marketing Services Catalog',
   itemListElement: ALL_SERVICES.map((s, idx) => ({
     '@type': 'Offer',
     position: idx + 1,
@@ -20,8 +20,8 @@ export default function ServicesPage() {
   return (
     <>
       <SEOHead
-        title="Comprehensive IT & AI Services Directory | Codestroom"
-        description="Explore our full engineering catalog: AI & LLMs, Web Development (React/Angular/WordPress), Custom Software, Mobile Apps (Flutter/React Native), Backend APIs (FastAPI/Node/Spring), E-Commerce & Growth Marketing."
+        title="IT & Digital Marketing Services Directory | Codestroom"
+        description="Explore our full services catalog: AI, web & mobile development, custom software, e-commerce and digital marketing across India, USA, Canada & Europe."
         canonicalPath="/services"
         schemas={[servicesCatalogSchema]}
       />

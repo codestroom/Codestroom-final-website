@@ -7,7 +7,7 @@ export default function ProcessPage() {
     <>
       <SEOHead
         title="Our Engineering & Delivery Process | Codestroom"
-        description="Learn how Codestroom delivers software projects from initial discovery, architectural blueprints, iterative sprint development, through automated QA and cloud launch."
+        description="Learn how Codestroom delivers projects — discovery, planning, sprint development, QA and launch."
         canonicalPath="/process"
       />
       <Process />
