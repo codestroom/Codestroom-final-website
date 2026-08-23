@@ -1,4 +1,4 @@
-# Codestroom — AI & IT Solutions Directory
+# Codestroom — IT & Digital Marketing Agency
 
 > Codestroom is an international IT engineering, AI solutions, custom software development, and performance digital marketing agency operating across India, Canada, the USA, and Europe.
 
@@ -52,10 +52,20 @@
 - **Specializations**: Cinematic short-form video editing (Reels/TikTok/Shorts), vector logo suites & brand books, high-converting ad creatives, Figma UI/UX design systems.
 - **Key Tools**: Adobe Premiere Pro, After Effects, DaVinci Resolve, Adobe Illustrator, Figma, Blender 3D.
 
+## Industries We Serve
+- Restaurants: https://codestroom.com/industries/restaurants
+- Religious Organizations: https://codestroom.com/industries/religious-organizations
+- E-Commerce Brands: https://codestroom.com/industries/ecommerce
+- Startups & Entrepreneurs: https://codestroom.com/industries/startups
+- Political Campaigns & Public Leaders: https://codestroom.com/industries/political-campaigns
+
 ## Navigation & Site Map
 - Home: https://codestroom.com/
 - Services Directory: https://codestroom.com/services
+- About: https://codestroom.com/about
 - Global Reach: https://codestroom.com/global-reach
 - Execution Process: https://codestroom.com/process
-- Case Studies & Work: https://codestroom.com/work
+- Who We Work With: https://codestroom.com/work
+- Portfolio: https://codestroom.com/portfolio
+- Blog: https://codestroom.com/blog
 - Contact & Inquiries: https://codestroom.com/contact
