@@ -15,3 +15,41 @@
   # Everything else falls back to index.html so React Router can handle the route
   RewriteRule . /index.html [L]
 </IfModule>
+
+# Cache lifetimes. JS/CSS bundles are content-hashed by Vite (a new filename
+# on every change), so they're safe to cache for a year without revalidation.
+# index.html is NOT hashed and references those hashed filenames, so it must
+# never be cached — otherwise a browser could keep an old index.html pointing
+# at JS/CSS bundles that no longer exist after a deploy.
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/xml "access plus 1 hour"
+  ExpiresByType text/plain "access plus 1 hour"
+
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # Images are not content-hashed — rename the file (not overwrite in place)
+  # if you ever need to replace one, otherwise cached copies won't update
+  # until this expires.
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:js|mjs|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

@@ -18,10 +18,26 @@
     <!-- Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Non-blocking font load: fetch with low priority, then swap to stylesheet once ready.
+         display=optional (not swap) avoids the layout shift a later font swap would cause —
+         text renders in the fallback font immediately and only uses the custom font if it's
+         ready within the initial render window, instead of reflowing once it arrives late. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=optional"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=optional"
+      />
+    </noscript>
+
+    <!-- Preload the hero graphic's fallback image — it's the largest above-the-fold
+         element while the 3D hero chunk (~180KB gzip) is still downloading -->
+    <link rel="preload" as="image" href="/assets/logo-hero.webp" fetchpriority="high" />
 
     <!-- Primary Title & Meta Description -->
     <title>Codestroom — IT & Digital Marketing Agency</title>
@@ -118,7 +134,7 @@
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
-    <script type="module" crossorigin src="/assets/index-CQHFGK-i.js"></script>
+    <script type="module" crossorigin src="/assets/index-DkCx9E9_.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-D-8TJEag.css">
   </head>
   <body>
