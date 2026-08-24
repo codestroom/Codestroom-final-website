@@ -24,7 +24,7 @@ export default function Preloader() {
   return (
     <div className={`preloader ${growing ? 'growing' : ''} ${fading ? 'fade-out' : ''}`} aria-hidden="true">
       <div className="preloader-logo-wrap">
-        <img src="/assets/logo.png" alt="" className="preloader-logo" />
+        <img src="/assets/logo-preloader.webp" alt="" className="preloader-logo" width="64" height="64" fetchPriority="high" />
       </div>
     </div>
   );

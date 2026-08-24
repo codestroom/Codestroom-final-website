@@ -215,7 +215,7 @@ export default function HeroLogo3D() {
     };
   }, []);
 
-  if (failed) return <img className="hero-logo" src="/assets/logo.png" alt="" />;
+  if (failed) return <img className="hero-logo" src="/assets/logo-hero.webp" alt="" width="460" height="460" />;
 
   return <div className="hero-logo-3d" ref={mountRef} />;
 }

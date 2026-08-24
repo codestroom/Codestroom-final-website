@@ -40,7 +40,7 @@ export default function Header() {
     <header className={scrolled ? 'scrolled' : ''}>
       <nav className="wrap">
         <Link to="/" className="brand" onClick={closeMenu}>
-          <img className="mark" src="/assets/logo.png" alt="Codestroom logo" width="34" height="34" />
+          <img className="mark" src="/assets/logo-icon.webp" alt="Codestroom logo" width="34" height="34" />
           Codestroom
         </Link>
 

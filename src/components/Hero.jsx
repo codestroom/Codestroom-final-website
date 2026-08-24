@@ -47,7 +47,18 @@ export default function Hero() {
           </Reveal>
         </div>
         <Reveal as="div" immediate className="blend-stage" aria-hidden="true">
-          <Suspense fallback={<img className="hero-logo" src="/assets/logo.png" alt="" />}>
+          <Suspense
+            fallback={
+              <img
+                className="hero-logo"
+                src="/assets/logo-hero.webp"
+                alt=""
+                width="460"
+                height="460"
+                fetchPriority="high"
+              />
+            }
+          >
             <HeroLogo3D />
           </Suspense>
         </Reveal>

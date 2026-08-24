@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link to="/" className="brand">
-              <img className="mark" src="/assets/logo.png" alt="Codestroom logo" width="34" height="34" />
+              <img className="mark" src="/assets/logo-icon.webp" alt="Codestroom logo" width="34" height="34" loading="lazy" />
               Codestroom
             </Link>
             <p>
