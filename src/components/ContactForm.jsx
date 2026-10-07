@@ -80,7 +80,10 @@ export default function ContactForm() {
       );
       if (match) setSelectedService(match);
     }
-    if (tierParam) {
+    const messageParam = params.get('message');
+    if (messageParam) {
+      setMessageValue(messageParam.slice(0, 2000));
+    } else if (tierParam) {
       setMessageValue(`Hi Codestroom team,\n\nI am interested in discussing the "${tierParam}" project scope.`);
     }
   }, []);

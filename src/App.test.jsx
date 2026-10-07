@@ -20,12 +20,12 @@ describe('routing', () => {
   });
 
   it.each([
-    ['/services', 'One team, every channel your business needs.'],
+    ['/services', 'Two paths.'],
     ['/about', 'The origin story'],
     ['/global-reach', 'Local insight, wherever your audience hangs out.'],
     ['/process', 'One engagement, four checkpoints.'],
     ['/work', 'Built for the businesses and people who serve their communities.'],
-    ['/portfolio', "The kind of work we're built for."],
+    ['/portfolio', 'Real accounts. Real growth.'],
     ['/blog', 'Things we learned the expensive way, written down.'],
     ['/contact', "However you'd rather start the conversation."],
   ])('renders %s', async (path, heading) => {

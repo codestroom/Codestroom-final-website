@@ -1,9 +1,7 @@
 // Capability showcase for the Portfolio page.
 //
-// Deliberately NOT case studies: Codestroom doesn't have shipped in-house
-// products or a public client project history yet, so this describes what
-// we're equipped to build per category — approach, deliverables, stack —
-// without implying a track record or inventing metrics/client names.
+// Describes what we're equipped to build per category — approach, deliverables,
+// stack. Real client results live in caseStudies.js; don't invent metrics here.
 
 export const PORTFOLIO_CATEGORIES = [
   { id: 'all', label: 'Everything' },

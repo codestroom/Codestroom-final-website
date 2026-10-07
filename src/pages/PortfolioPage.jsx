@@ -4,7 +4,9 @@ import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
 import CTA from '../components/CTA';
 import SEOHead from '../components/SEOHead';
+import ResultsWall from '../components/work/ResultsWall';
 import { CAPABILITIES, PORTFOLIO_CATEGORIES } from '../data/portfolioData';
+import { CASE_STUDIES, TOTAL_FOLLOWERS } from '../data/caseStudies';
 
 const portfolioSchema = {
   '@context': 'https://schema.org',
@@ -15,9 +17,11 @@ const portfolioSchema = {
   url: 'https://codestroom.com/portfolio',
 };
 
+const featuredCase = CASE_STUDIES.find((c) => c.before);
+
 const HERO_STATS = [
-  { val: `${CAPABILITIES.length}`, lbl: 'capability areas' },
-  { val: '4', lbl: 'regions served' },
+  { val: `${Math.floor(TOTAL_FOLLOWERS / 1000)}K+`, lbl: 'followers on accounts we manage' },
+  { val: `${(featuredCase.after.followers / featuredCase.before.followers).toFixed(1)}×`, lbl: `growth in ${featuredCase.period}` },
   { val: '48h', lbl: 'reply on new briefs' },
 ];
 
@@ -39,14 +43,24 @@ export default function PortfolioPage() {
       />
 
       <PageHero
-        kicker="What we build"
-        title="The kind of work we're built for."
-        lead="We're a growing team, so instead of a highlight reel of past logos, here's what we're actually equipped to deliver — the approach, the deliverables and the stack behind each one."
+        kicker="Our work"
+        title="Real accounts. Real growth."
+        lead="Real Instagram accounts we manage, with live follower counts — open any of them and check for yourself. Further down: everything else we build."
         stats={HERO_STATS}
+      />
+
+      <ResultsWall
+        kicker="Client results"
+        title={<>Numbers you can <em>verify.</em></>}
+        lead="Spiritual leaders, clinics and community brands — growing on Instagram with Codestroom."
       />
 
       <section className="portfolio-section">
         <div className="wrap">
+          <Reveal className="section-head">
+            <span className="kicker">Beyond Instagram</span>
+            <h2>Everything else we build.</h2>
+          </Reveal>
           <div className="filter-bar" role="group" aria-label="Filter capabilities">
             {PORTFOLIO_CATEGORIES.map((cat) => (
               <button
