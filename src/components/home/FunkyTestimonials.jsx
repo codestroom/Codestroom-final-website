@@ -1,4 +1,5 @@
 import Reveal from '../Reveal';
+import { spotlightMove } from './useSpotlight';
 
 const REVIEWS = [
   {
@@ -55,11 +56,12 @@ export default function FunkyTestimonials() {
 
         <div className="funky-testi-grid">
           {REVIEWS.map((r, idx) => (
-            <Reveal as="div" key={r.name} delay={idx * 50} className={`funky-testi-card ${r.glow}`}>
+            <Reveal as="div" key={r.name} delay={idx * 130} onPointerMove={spotlightMove} className={`funky-testi-card spotlight ${r.glow}`}>
+              <span className="testi-quote-mark" aria-hidden="true">“</span>
               <div className="testi-card-header">
                 <div className="stars-row">
                   {[...Array(r.stars)].map((_, i) => (
-                    <span key={i} className="star-icon">★</span>
+                    <span key={i} className="star-icon" style={{ '--s': i }}>★</span>
                   ))}
                 </div>
                 <span className="testi-verified-pill">{r.badge}</span>

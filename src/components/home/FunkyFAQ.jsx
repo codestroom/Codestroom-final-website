@@ -52,21 +52,22 @@ export default function FunkyFAQ() {
           {FAQS.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
-              <Reveal as="div" key={idx} delay={idx * 30} className={`faq-item ${isOpen ? 'open' : ''}`}>
+              <Reveal as="div" key={idx} delay={idx * 80} className={`faq-item ${isOpen ? 'open' : ''}`}>
                 <button
                   type="button"
                   className="faq-question-btn"
                   onClick={() => toggle(idx)}
                   aria-expanded={isOpen}
                 >
+                  <span className="faq-num">{String(idx + 1).padStart(2, '0')}</span>
                   <span className="faq-q-text">{faq.q}</span>
-                  <span className="faq-toggle-icon">{isOpen ? '−' : '+'}</span>
+                  <span className="faq-toggle-icon" aria-hidden="true">+</span>
                 </button>
-                {isOpen && (
-                  <div className="faq-answer-panel">
+                <div className="faq-answer-panel" inert={!isOpen}>
+                  <div className="faq-answer-inner">
                     <p>{faq.a}</p>
                   </div>
-                )}
+                </div>
               </Reveal>
             );
           })}

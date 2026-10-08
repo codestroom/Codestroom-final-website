@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom';
 import Reveal from '../../Reveal';
 import HubIcon from './HubIcon';
 import { BUILD } from '../../../data/servicesHub';
+import { tiltLeave, tiltMove } from '../../home/useSpotlight';
+
+const CYCLE_MS = 5600;
+const STEPS = ['Plan', 'Design', 'Build', 'Launch'];
+
+// what the build log and floating stack chips say for each preview
+const BUILD_META = {
+  static: { stack: ['React', 'Tailwind', 'CDN'], log: ['Layout sketched', 'Pages built & optimised', 'Live on yourbrand.com'] },
+  dynamic: { stack: ['Next.js', 'Postgres', 'Auth'], log: ['Database connected', 'Logins & editor added', 'Content updates instantly'] },
+  shop: { stack: ['Next.js', 'Stripe', 'Search'], log: ['Catalogue imported', 'Checkout & payments wired', 'Store is open'] },
+  shopify: { stack: ['Liquid', 'Shopify', 'Klaviyo'], log: ['Theme customised', 'Product pages styled', 'Store published'] },
+  app: { stack: ['Flutter', 'React Native', 'Firebase'], log: ['Screens designed', 'iOS & Android builds ready', 'Submitted to the stores'] },
+  software: { stack: ['React', 'Node.js', 'Postgres'], log: ['Workflow mapped', 'Boards & roles built', 'Team onboarded'] },
+  ai: { stack: ['Claude', 'OpenAI', 'Webhooks'], log: ['Knowledge connected', 'Trained on your FAQs', 'Answering customers 24/7'] },
+  erp: { stack: ['Postgres', 'Dashboards', 'Reports'], log: ['Stock, orders & invoices linked', 'Dashboards built', 'Running live'] },
+  crm: { stack: ['Pipelines', 'WhatsApp', 'Email'], log: ['Lead sources connected', 'Pipeline stages set up', 'Deals moving'] },
+  api: { stack: ['Node.js', 'Docker', 'AWS'], log: ['Endpoints designed', 'Tests passing', 'Deployed & auto-scaling'] },
+};
 
 // A block that "builds in" with a staggered delay.
 function B({ c = '', s = 0, children }) {
@@ -173,10 +191,11 @@ export default function BuildLab() {
   const [auto, setAuto] = useState(true);
   const current = BUILD[active];
   const Preview = PREVIEWS[current.preview];
+  const meta = BUILD_META[current.preview];
 
   useEffect(() => {
     if (!auto) return undefined;
-    const t = setInterval(() => setActive((a) => (a + 1) % BUILD.length), 4200);
+    const t = setInterval(() => setActive((a) => (a + 1) % BUILD.length), CYCLE_MS);
     return () => clearInterval(t);
   }, [auto]);
 
@@ -219,8 +238,42 @@ export default function BuildLab() {
               <span className="blab-live"><i /> Live preview</span>
               <span className="blab-spec">{String(active + 1).padStart(2, '0')} / {String(BUILD.length).padStart(2, '0')}</span>
             </div>
-            <div className="blab-canvas" key={current.preview}>
-              <Preview />
+            <div
+              className="blab-canvas"
+              key={current.preview}
+              onPointerMove={tiltMove}
+              onPointerLeave={tiltLeave}
+            >
+              <div className="blab-tilt">
+                <div className="blab-assemble">
+                  <Preview />
+                  <span className="blab-scan" aria-hidden="true" />
+                </div>
+                {meta.stack.map((tech, i) => (
+                  <span key={tech} className={`blab-chip chip-${i}`} aria-hidden="true">{tech}</span>
+                ))}
+                <span className="blab-stamp" aria-hidden="true">
+                  <i /> Live
+                  {[...Array(10)].map((_, i) => <b key={i} style={{ '--a': `${i * 36}deg` }} />)}
+                </span>
+              </div>
+            </div>
+            <div className="blab-hud" key={`hud-${current.preview}`}>
+              <ol className="blab-steps" aria-hidden="true">
+                {STEPS.map((step, i) => (
+                  <li key={step} style={{ '--i': i }}>
+                    <span className="blab-step-dot" />
+                    {step}
+                  </li>
+                ))}
+              </ol>
+              <ul className="blab-log">
+                {meta.log.map((line, i) => (
+                  <li key={line} style={{ '--i': i }}>
+                    <span className="blab-log-tick">✓</span> {line}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="blab-caption" key={`cap-${current.name}`}>
               <div>

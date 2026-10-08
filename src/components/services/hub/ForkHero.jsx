@@ -43,8 +43,6 @@ export default function ForkHero() {
           </h1>
           <p>We grow your brand and build your technology — choose where to start.</p>
           <div className="fork-tools">
-            <a href="#results" onClick={(e) => jump(e, 'results')}>📈 See real client results</a>
-            <a href="#audit" onClick={(e) => jump(e, 'audit')}>⚡ Test your website free</a>
             <a href="#plan" onClick={(e) => jump(e, 'plan')}>🧭 Build your plan in 20s</a>
           </div>
         </div>

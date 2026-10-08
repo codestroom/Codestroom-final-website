@@ -14,9 +14,14 @@ export default function FunkyCTA() {
   return (
     <section id="contact" className="funky-cta-section">
       <div className="wrap">
-        <Reveal className="funky-cta-box">
+        <Reveal variant="scale" className="funky-cta-box">
           <div className="cta-ambient-glow glow-1"></div>
           <div className="cta-ambient-glow glow-2"></div>
+          <div className="cta-sparks" aria-hidden="true">
+            {[...Array(8)].map((_, i) => (
+              <span key={i} style={{ '--k': i }}></span>
+            ))}
+          </div>
           
           <div className="cta-badge-pill">
             <span className="pulsing-neon-dot"></span>

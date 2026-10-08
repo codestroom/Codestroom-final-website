@@ -32,6 +32,10 @@ const COMPARISONS = [
 export default function FunkyVsBoring() {
   return (
     <section className="funky-vs-section">
+      <div className="vs-ambient" aria-hidden="true">
+        <span className="vs-orb vo-1"></span>
+        <span className="vs-orb vo-2"></span>
+      </div>
       <div className="wrap">
         <Reveal className="funky-section-header">
           <div className="funky-pill-badge badge-warning">
@@ -48,7 +52,7 @@ export default function FunkyVsBoring() {
 
         <div className="funky-vs-container">
           {/* Header Row */}
-          <div className="vs-table-head">
+          <Reveal className="vs-table-head">
             <div className="vs-head-col boring-head">
               <span className="emoji-badge">😴</span>
               <div>
@@ -63,15 +67,15 @@ export default function FunkyVsBoring() {
                 <p>High velocity, modern tech & real results</p>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Rows */}
           <div className="vs-rows-wrap">
             {COMPARISONS.map((row, idx) => (
-              <Reveal as="div" key={idx} delay={idx * 40} className="vs-row-card">
+              <Reveal as="div" key={idx} delay={idx * 110} variant={idx % 2 ? 'right' : 'left'} className="vs-row-card">
                 <div className="vs-cell cell-boring">
                   <span className="cross-icon">✕</span>
-                  <span className="vs-text">{row.boring}</span>
+                  <span className="vs-text"><span className="vs-strike">{row.boring}</span></span>
                 </div>
                 <div className="vs-cell-divider">
                   <span className="vs-badge">VS</span>
@@ -85,7 +89,7 @@ export default function FunkyVsBoring() {
           </div>
         </div>
 
-        <Reveal className="vs-bottom-banner">
+        <Reveal variant="scale" className="vs-bottom-banner">
           <div className="banner-left">
             <span className="banner-sparkle">🚀</span>
             <div>

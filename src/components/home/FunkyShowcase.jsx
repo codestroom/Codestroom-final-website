@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from '../Reveal';
+import CountUp from './CountUp';
+import { spotlightMove } from './useSpotlight';
 
 const VERTICALS = [
   {
@@ -82,11 +84,13 @@ export default function FunkyShowcase() {
         </Reveal>
 
         {/* Tab Switcher */}
-        <div className="showcase-tab-bar">
+        <Reveal delay={100} className="showcase-tab-bar" role="tablist">
           {VERTICALS.map((v) => (
             <button
               key={v.id}
               type="button"
+              role="tab"
+              aria-selected={activeTab === v.id}
               className={`showcase-tab-btn ${activeTab === v.id ? 'active' : ''}`}
               onClick={() => setActiveTab(v.id)}
             >
@@ -94,10 +98,10 @@ export default function FunkyShowcase() {
               <span className="tab-name">{v.title}</span>
             </button>
           ))}
-        </div>
+        </Reveal>
 
         {/* Featured Showcase Card */}
-        <Reveal key={current.id} className={`showcase-display-card ${current.glow}`}>
+        <Reveal key={current.id} variant="blur" onPointerMove={spotlightMove} className={`showcase-display-card spotlight ${current.glow}`}>
           <div className="showcase-card-left">
             <div className="showcase-badge-row">
               <span className="showcase-emoji-large">{current.emoji}</span>
@@ -132,8 +136,8 @@ export default function FunkyShowcase() {
               </div>
               <div className="metrics-grid">
                 {current.metrics.map((m, idx) => (
-                  <div key={idx} className="metric-cell">
-                    <div className="metric-val">{m.num}</div>
+                  <div key={idx} className="metric-cell" style={{ '--i': idx }}>
+                    <CountUp value={m.num} className="metric-val" />
                     <div className="metric-desc">{m.label}</div>
                   </div>
                 ))}

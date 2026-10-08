@@ -8,6 +8,7 @@ import FunkyTestimonials from '../components/home/FunkyTestimonials';
 import FunkyFAQ from '../components/home/FunkyFAQ';
 import FunkyCTA from '../components/home/FunkyCTA';
 import SEOHead from '../components/SEOHead';
+import '../styles/home-motion.css';
 
 const homeWebSiteSchema = {
   '@context': 'https://schema.org',

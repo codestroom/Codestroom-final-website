@@ -1,92 +1,78 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from '../Reveal';
+import { tiltLeave, tiltMove } from './useSpotlight';
 
-const COPY = {
-  organic:
-    'Organic-led: this plan leans into content, local SEO and community trust — building visibility that compounds over time.',
-  balanced:
-    'A balanced mix: organic content and paid campaigns working together from the same strategy.',
-  paid:
-    'Paid-led: this plan leans into ads and performance campaigns — built for fast, measurable results.',
-};
+// three.js only downloads once the section is close to the viewport
+const MixScene3D = lazy(() => import('./MixScene3D'));
 
 const PRESETS = [
-  { name: '🌱 Long-term Organic Compounding', val: 25, label: 'SEO & Brand Trust' },
-  { name: '⚡ Balanced Omni-Channel Growth', val: 50, label: 'Hybrid High-Velocity' },
-  { name: '🚀 Aggressive Paid Acquisition', val: 75, label: 'Fast ROAS & Blitz' },
+  { name: 'Organic-led', icon: '🌱', paid: 25 },
+  { name: 'Balanced', icon: '⚡', paid: 50 },
+  { name: 'Paid-led', icon: '🚀', paid: 75 },
 ];
 
-function readoutFor(value) {
-  if (value < 38) return COPY.organic;
-  if (value > 62) return COPY.paid;
-  return COPY.balanced;
+// how each side of the budget splits across its channels
+const CHANNELS = [
+  { side: 'organic', name: 'SEO & local maps', icon: '📍', share: 0.55 },
+  { side: 'organic', name: 'Content & social', icon: '🎬', share: 0.45 },
+  { side: 'paid', name: 'Meta ads', icon: '📣', share: 0.55 },
+  { side: 'paid', name: 'Google ads & retargeting', icon: '🎯', share: 0.45 },
+];
+
+function planFor(paid) {
+  if (paid < 38) {
+    return {
+      title: 'The Organic Flywheel',
+      icon: '🌿',
+      readout:
+        'This plan leans into content, local SEO and community trust — building visibility that compounds over time.',
+      sprint: 'Sprint 1 · Technical SEO & authority engine · 2–3 weeks',
+    };
+  }
+  if (paid > 62) {
+    return {
+      title: 'The Growth Rocket',
+      icon: '🚀',
+      readout:
+        'This plan leans into ads and performance campaigns — built for fast, measurable results.',
+      sprint: 'Sprint 1 · High-converting funnel & ad matrix · 7–10 days',
+    };
+  }
+  return {
+    title: 'The Golden Ratio',
+    icon: '⚡',
+    readout: 'Organic content and paid campaigns working together from the same strategy.',
+    sprint: 'Sprint 1 · Content + performance pilot · 14 days',
+  };
 }
 
-function getVibeTitle(value) {
-  if (value < 38) return 'The Organic Flywheel 🌿';
-  if (value > 62) return 'The Growth Rocket 🚀';
-  return 'The Golden Ratio ⚡';
-}
-
-function getSprintEstimate(value) {
-  if (value < 38) return 'Sprint 1: Technical SEO & Authority Engine (2-3 Weeks)';
-  if (value > 62) return 'Sprint 1: High-Converting Funnel & Ad Matrix (7-10 Days)';
-  return 'Sprint 1: Dual-Track Content + Performance Pilot (14 Days)';
+function useNearViewport() {
+  const ref = useRef(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '400px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, near];
 }
 
 export default function FunkyProjectLab() {
-  const trackRef = useRef(null);
-  const handleRef = useRef(null);
-  const draggingRef = useRef(false);
-
-  const [value, setValue] = useState(50); // 15 - 85
-  const [dragging, setDragging] = useState(false);
-
-  const setFromClientX = useCallback((clientX) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const rect = track.getBoundingClientRect();
-    let ratio = (clientX - rect.left) / rect.width;
-    ratio = Math.max(0.15, Math.min(0.85, ratio));
-    setValue(ratio * 100);
-  }, []);
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!draggingRef.current) return;
-      setFromClientX(e.clientX);
-    };
-    const onUp = () => {
-      draggingRef.current = false;
-      setDragging(false);
-    };
-    window.addEventListener('pointermove', onMove);
-    window.addEventListener('pointerup', onUp);
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup', onUp);
-    };
-  }, [setFromClientX]);
-
-  const handlePointerDown = (e) => {
-    draggingRef.current = true;
-    setDragging(true);
-    handleRef.current?.setPointerCapture(e.pointerId);
-  };
-
-  const handleTrackPointerDown = (e) => {
-    if (e.target === handleRef.current) return;
-    setFromClientX(e.clientX);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') setValue((v) => Math.max(15, v - 5));
-    if (e.key === 'ArrowRight') setValue((v) => Math.min(85, v + 5));
-  };
-
-  const organicPct = Math.round(100 - value);
-  const paidPct = Math.round(value);
+  const [paid, setPaid] = useState(50);
+  const organic = 100 - paid;
+  const plan = planFor(paid);
+  const [stageRef, near] = useNearViewport();
 
   return (
     <section id="blend-lab" className="funky-lab-section">
@@ -96,97 +82,125 @@ export default function FunkyProjectLab() {
             <span className="pulsing-neon-dot"></span>
             <span>STRATEGY SYNTHESIZER</span>
           </div>
-          <h2 className="funky-title">
-            Drag to find your marketing mix. No math required.
-          </h2>
+          <h2 className="funky-title">Drag to find your marketing mix. No math required.</h2>
           <p className="funky-subtitle">
-            Every business leans differently toward organic trust-building and paid
-            performance. Slide the interactive synthesizer to discover your optimal formula.
+            Every business leans differently toward organic trust-building and paid performance.
+            Slide to see what your first plan would look like.
           </p>
         </Reveal>
 
-        {/* Quick Presets */}
-        <Reveal className="lab-presets-bar">
-          <span className="preset-label">Quick Presets:</span>
-          <div className="preset-pills">
-            {PRESETS.map((p) => (
-              <button
-                key={p.name}
-                type="button"
-                className={`preset-btn ${Math.abs(value - p.val) < 5 ? 'active' : ''}`}
-                onClick={() => setValue(p.val)}
-              >
-                {p.name}
-              </button>
-            ))}
-          </div>
-        </Reveal>
+        <Reveal variant="scale" delay={100} className="mix-stage">
+          <div className="mix-stage-grid" aria-hidden="true"></div>
 
-        {/* The Interactive Synthesizer Console */}
-        <Reveal className="funky-lab-console">
-          <div className="console-hud-bar">
-            <div className="hud-status">
-              <span className="hud-live-dot"></span>
-              <span>TACTICAL MIX ENGAGED</span>
+          {/* 3d split visual */}
+          <div className="mix-visual" ref={stageRef}>
+            {near ? (
+              <Suspense fallback={<div className="mix-ring-fallback" style={{ '--organic': `${organic}%` }} />}>
+                <MixScene3D organic={organic} />
+              </Suspense>
+            ) : (
+              <div className="mix-ring-fallback" style={{ '--organic': `${organic}%` }} />
+            )}
+            <div className="mix-visual-center">
+              <strong>
+                {organic}
+                <span>/</span>
+                {paid}
+              </strong>
+              <small>organic / paid</small>
             </div>
-            <div className="hud-strategy-badge">{getVibeTitle(value)}</div>
+            <span className="mix-float-chip chip-organic">🌱 Organic {organic}%</span>
+            <span className="mix-float-chip chip-paid">🚀 Paid {paid}%</span>
           </div>
 
-          <div
-            className={`lab-track funky-track-styled ${dragging ? 'dragging' : ''}`}
-            ref={trackRef}
-            onPointerDown={handleTrackPointerDown}
-          >
-            <div className="lab-fill-left funky-fill-organic" style={{ width: `${value}%` }}></div>
-            <div className="lab-fill-right funky-fill-paid" style={{ width: `${100 - value}%` }}></div>
-            <div className="lab-overlap" style={{ left: `calc(${value}% - 45px)` }}></div>
-            
-            <div
-              className="lab-handle funky-handle-styled"
-              ref={handleRef}
-              tabIndex={0}
-              role="slider"
-              aria-valuemin={15}
-              aria-valuemax={85}
-              aria-valuenow={Math.round(value)}
-              aria-label="Balance between organic and paid marketing"
-              style={{ left: `${value}%` }}
-              onPointerDown={handlePointerDown}
-              onKeyDown={handleKeyDown}
-            >
-              <div className="handle-glow-halo"></div>
-              <span className="lab-pct">
-                {organicPct}% / {paidPct}%
-              </span>
-            </div>
-          </div>
+          {/* live plan */}
+          <div className="mix-info" onPointerMove={tiltMove} onPointerLeave={tiltLeave}>
+            <span className="mix-plan-kicker">
+              <span className="mix-live-dot"></span>Your plan, live
+            </span>
+            <h3 key={plan.title} className="mix-plan-title swap-in">
+              <span className="mix-plan-icon">{plan.icon}</span> {plan.title}
+            </h3>
+            <p key={plan.readout} className="mix-readout swap-in">{plan.readout}</p>
 
-          <div className="lab-labels funky-labels-grid">
-            <div className="lab-label-card card-organic">
-              <div className="label-header">
-                <span className="label-icon">🌱</span>
-                <strong>Organic Growth ({organicPct}%)</strong>
+            <div className="mix-meters">
+              <div className="mix-meter">
+                <div className="mix-meter-row">
+                  <span>⚡ Speed to results</span>
+                </div>
+                <div className="mix-meter-track">
+                  <span className="meter-fast" style={{ width: `${paid}%` }}></span>
+                </div>
               </div>
-              <p>Content architecture, local SEO maps, technical authority, and sustainable brand recall.</p>
-            </div>
-            <div className="lab-label-card card-paid">
-              <div className="label-header">
-                <span className="label-icon">🚀</span>
-                <strong>Paid Performance ({paidPct}%)</strong>
+              <div className="mix-meter">
+                <div className="mix-meter-row">
+                  <span>📈 Long-term compounding</span>
+                </div>
+                <div className="mix-meter-track">
+                  <span className="meter-compound" style={{ width: `${organic}%` }}></span>
+                </div>
               </div>
-              <p>High-ROAS Meta & Google ads, precision retargeting, conversion landers & rapid testing.</p>
             </div>
-          </div>
 
-          <div className="lab-insight-box">
-            <div className="insight-badge">STRATEGY BREAKDOWN</div>
-            <p className="lab-readout funky-readout-text">{readoutFor(value)}</p>
-            <div className="insight-sprint-footer">
-              <span className="sprint-icon">⚡</span>
-              <span className="sprint-text">{getSprintEstimate(value)}</span>
-              <Link to="/contact" className="btn btn-primary sprint-btn">
-                Launch Blueprint →
+            <ul className="mix-channels">
+              {CHANNELS.map((c) => {
+                const pct = Math.round((c.side === 'organic' ? organic : paid) * c.share);
+                return (
+                  <li key={c.name} className={`mix-channel mix-channel-${c.side}`}>
+                    <span className="mix-channel-icon">{c.icon}</span>
+                    <span className="mix-channel-name">{c.name}</span>
+                    <strong className="mix-channel-pct">{pct}%</strong>
+                    <span className="mix-channel-fill" style={{ width: `${pct * 2}%` }}></span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="mix-plan-foot">
+              <span key={plan.sprint} className="mix-sprint swap-in">{plan.sprint}</span>
+              <Link to="/contact" className="btn btn-gradient">
+                Build this plan →
               </Link>
+            </div>
+          </div>
+
+          {/* controls */}
+          <div className="mix-console">
+            <div className="mix-console-num num-organic">
+              <span>{organic}%</span>
+              <small>Organic</small>
+            </div>
+            <div className="mix-console-slider">
+              <input
+                type="range"
+                className="mix-range"
+                min={15}
+                max={85}
+                step={1}
+                value={paid}
+                onChange={(e) => setPaid(Number(e.target.value))}
+                style={{ '--fill': `${((paid - 15) / 70) * 100}%` }}
+                aria-label="Balance between organic and paid marketing"
+                aria-valuetext={`${organic}% organic, ${paid}% paid`}
+              />
+              <div className="mix-presets" role="group" aria-label="Quick presets">
+                {PRESETS.map((p) => (
+                  <button
+                    key={p.name}
+                    type="button"
+                    className={`mix-preset ${paid === p.paid ? 'active' : ''}`}
+                    aria-pressed={paid === p.paid}
+                    onClick={() => setPaid(p.paid)}
+                  >
+                    <span className="mix-preset-icon">{p.icon}</span>
+                    {p.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="mix-console-num num-paid">
+              <span>{paid}%</span>
+              <small>Paid</small>
             </div>
           </div>
         </Reveal>

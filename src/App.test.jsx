@@ -25,7 +25,7 @@ describe('routing', () => {
     ['/global-reach', 'Local insight, wherever your audience hangs out.'],
     ['/process', 'One engagement, four checkpoints.'],
     ['/work', 'Built for the businesses and people who serve their communities.'],
-    ['/portfolio', 'Real accounts. Real growth.'],
+    ['/portfolio', 'What we build. How we grow it.'],
     ['/blog', 'Things we learned the expensive way, written down.'],
     ['/contact', "However you'd rather start the conversation."],
   ])('renders %s', async (path, heading) => {

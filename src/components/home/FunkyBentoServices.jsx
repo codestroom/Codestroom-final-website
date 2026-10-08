@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from '../Reveal';
+import CountUp from './CountUp';
+import { spotlightMove } from './useSpotlight';
 
 const SERVICES = [
   {
@@ -87,7 +89,7 @@ export default function FunkyBentoServices() {
   const [activeFilter, setActiveFilter] = useState('all');
 
   return (
-    <section className="funky-bento-section">
+    <section id="home-services" className="funky-bento-section">
       <div className="wrap">
         <Reveal className="funky-section-header">
           <div className="funky-pill-badge">
@@ -109,8 +111,10 @@ export default function FunkyBentoServices() {
               as={Link}
               to={`/services/${item.slug}`}
               key={item.id}
-              delay={idx * 50}
-              className={`funky-bento-card ${item.glow} ${item.featured ? 'bento-featured' : ''}`}
+              delay={idx * 90}
+              variant="scale"
+              onPointerMove={spotlightMove}
+              className={`funky-bento-card spotlight ${item.glow} ${item.featured ? 'bento-featured' : ''}`}
             >
               <div className="bento-glass-shine"></div>
               
@@ -120,7 +124,7 @@ export default function FunkyBentoServices() {
                 </div>
                 <div className="bento-stat-chip">
                   <span className="stat-fire">🔥</span>
-                  <span>{item.stat}</span>
+                  <CountUp value={item.stat} />
                 </div>
               </div>
 
@@ -145,7 +149,7 @@ export default function FunkyBentoServices() {
         </div>
 
         {/* Action Bar */}
-        <Reveal className="bento-cta-bar">
+        <Reveal variant="blur" className="bento-cta-bar">
           <div className="bento-cta-content">
             <span className="cta-fire-badge">⚡ ALL-IN-ONE PARTNER</span>
             <p>Need a custom stack engineered from scratch or a full digital takeover?</p>

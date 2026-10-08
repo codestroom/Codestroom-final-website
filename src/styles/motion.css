@@ -1,0 +1,191 @@
+/* ==========================================================================
+   SITE-WIDE MOTION & HOVER LAYER
+   Generic rules are wrapped in :where() so they carry zero specificity:
+   any hover a component already designs for itself still wins, and this
+   layer only fills in the elements that had no hover effect at all.
+   ========================================================================== */
+
+::selection{ background: rgba(248, 34, 139, .18); color: var(--ink); }
+
+/* ---------- scroll progress ---------- */
+.scroll-progress{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1001;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(248, 34, 139, .5);
+}
+
+/* ---------- cursor ring (fine pointers only, enabled from js) ---------- */
+.cursor-ring,
+.cursor-dot{
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+  will-change: transform;
+}
+.has-cursor-ring .cursor-ring,
+.has-cursor-ring .cursor-dot{ display: block; }
+.cursor-dot{
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+.cursor-ring::before{
+  content: '';
+  position: absolute;
+  width: 34px; height: 34px;
+  left: -17px; top: -17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(110, 34, 184, .45);
+  opacity: 0;
+  transition: width .3s var(--ease), height .3s var(--ease), left .3s var(--ease), top .3s var(--ease),
+              background .3s, border-color .3s, opacity .3s, border-radius .3s;
+}
+.cursor-ring.is-visible::before{ opacity: 1; }
+.cursor-ring.is-link::before{
+  width: 54px; height: 54px; left: -27px; top: -27px;
+  background: rgba(248, 34, 139, .1);
+  border-color: rgba(248, 34, 139, .6);
+}
+.cursor-ring.is-card::before{
+  width: 76px; height: 76px; left: -38px; top: -38px;
+  background: rgba(46, 157, 244, .07);
+  border-color: rgba(46, 157, 244, .45);
+  border-style: dashed;
+}
+.cursor-ring.is-text::before{ width: 4px; height: 28px; left: -2px; top: -14px; border-radius: 2px; opacity: .4; }
+.cursor-ring.is-down::before{ width: 24px; height: 24px; left: -12px; top: -12px; background: rgba(248, 34, 139, .25); }
+
+/* ---------- route change ---------- */
+main.route-enter > *{ animation: routeIn .55s var(--ease) both; }
+@keyframes routeIn{
+  from{ opacity: 0; transform: translateY(14px); }
+  to{ opacity: 1; transform: none; }
+}
+
+/* ---------- auto scroll-in for sections without their own reveal ---------- */
+.auto-reveal{
+  opacity: 0;
+  translate: 0 44px;
+  transition: opacity .9s var(--ease), translate .9s var(--ease);
+}
+.auto-reveal.auto-in{ opacity: 1; translate: none; }
+
+/* ---------- buttons: lift, light sweep, press ---------- */
+.btn{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.4) 50%, transparent 75%);
+  transform: translateX(-130%);
+  transition: transform .7s var(--ease);
+  pointer-events: none;
+}
+.btn:hover::after{ transform: translateX(130%); }
+.btn-ghost::after,
+.btn-outline::after{ background: linear-gradient(100deg, transparent 25%, rgba(110,34,184,.12) 50%, transparent 75%); }
+.btn:active{ scale: .97; transition-duration: .08s; }
+/* the copy-email button shows a tooltip above itself, so it can't clip */
+.copy-email-btn{ overflow: visible; }
+.copy-email-btn::after{ display: none; }
+:where(.btn-ghost, .btn-outline):hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -10px rgba(110, 34, 184, .35);
+}
+
+/* ---------- generic links & controls ---------- */
+:where(a, button, [role="button"], [role="tab"]){
+  transition: color .25s var(--ease), background-color .25s var(--ease), border-color .25s var(--ease),
+              transform .25s var(--ease), translate .25s var(--ease), scale .25s var(--ease),
+              box-shadow .25s var(--ease), opacity .25s var(--ease);
+}
+:where(button, [role="tab"]):where(:not(:disabled)):hover{ translate: 0 -1px; }
+:where(button, [role="tab"]):where(:not(:disabled)):active{ scale: .97; }
+
+/* inline text links: underline draws in from the left */
+:where(main p, main li, footer, .footer-legal-link) a:where(:not(.btn):not([class*="card"]):not([class*="btn"])){
+  background-image: linear-gradient(90deg, var(--pink), var(--purple));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size .35s var(--ease), color .25s var(--ease);
+}
+:where(main p, main li, footer, .footer-legal-link) a:where(:not(.btn):not([class*="card"]):not([class*="btn"])):hover{
+  background-size: 100% 1.5px;
+  color: var(--purple);
+}
+footer .socials a:hover{ background-size: 0 0; }
+
+/* icons inside links and buttons */
+:where(a, button) svg{ transition: transform .3s var(--ease); }
+:where(a, button):hover > svg:last-child:not(:first-child){ transform: translateX(3px); }
+:where(a, button):hover > svg:only-child{ transform: scale(1.12) rotate(-6deg); }
+:where(.socials a){ display: inline-flex; }
+:where(.socials a):hover{ transform: translateY(-3px) rotate(-6deg); }
+:where(.back-to-top):hover{ transform: translateY(-4px); }
+
+/* ---------- cards: lift + glow ---------- */
+:where([class$="-card"], [class*="-card "], [class*="card-item"]):where(:not([class*="form"]):not([class*="estimator"]):not([class*="stats"]):not(.spotlight)){
+  transition: transform .35s var(--ease), translate .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+:where([class$="-card"], [class*="-card "], [class*="card-item"]):where(:not([class*="form"]):not([class*="estimator"]):not([class*="stats"]):not(.spotlight)):hover{
+  translate: 0 -5px;
+  box-shadow: 0 22px 44px -22px rgba(42, 27, 140, .35);
+  border-color: rgba(110, 34, 184, .28);
+}
+/* images inside linked cards ease in a touch */
+:where(a[class*="card"]) img{ transition: transform .6s var(--ease), filter .6s var(--ease); }
+:where(a[class*="card"]):hover img{ transform: scale(1.03); filter: saturate(1.1); }
+
+/* small pills & chips */
+/* suffix matches only, so "pillar" or "stage" don't count as pills/tags */
+:where([class$="-pill"], [class*="-pill "], [class$="-chip"], [class*="-chip "], [class$="-tag"], [class*="-tag "]){
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease), background-color .25s var(--ease);
+}
+:where([class$="-pill"], [class*="-pill "], [class$="-chip"], [class*="-chip "], [class$="-tag"], [class*="-tag "]):hover{
+  translate: 0 -2px;
+}
+
+/* ---------- form fields ---------- */
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea){
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background-color .25s var(--ease);
+}
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea):hover{
+  border-color: rgba(110, 34, 184, .4);
+}
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea):focus{
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(110, 34, 184, .12);
+  outline: none;
+}
+
+/* ---------- headings: gradient words shimmer on hover ---------- */
+:where(h1, h2) :where(em, .grad, .funky-gradient-text){ transition: filter .4s var(--ease); }
+:where(h1, h2):hover :where(em, .grad, .funky-gradient-text){ filter: brightness(1.15) saturate(1.2); }
+
+/* ---------- brand mark ---------- */
+.brand .mark{ transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.brand:hover .mark{ transform: rotate(-12deg) scale(1.12); }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  .cursor-ring, .cursor-dot{ display: none !important; }
+  main.route-enter > *{ animation: none; }
+  .auto-reveal{ opacity: 1; translate: none; transition: none; }
+  .btn::after{ display: none; }
+  :where(*):hover{ translate: none !important; }
+}

@@ -3,19 +3,29 @@
 // Describes what we're equipped to build per category — approach, deliverables,
 // stack. Real client results live in caseStudies.js; don't invent metrics here.
 
-export const PORTFOLIO_CATEGORIES = [
-  { id: 'all', label: 'Everything' },
-  { id: 'ai', label: 'AI & Automation' },
-  { id: 'web', label: 'Web & SaaS' },
-  { id: 'mobile', label: 'Mobile Apps' },
-  { id: 'commerce', label: 'E-Commerce' },
-  { id: 'marketing', label: 'Marketing' },
+// The portfolio page is split into these two segments; every capability
+// belongs to exactly one of them.
+export const PORTFOLIO_SEGMENTS = [
+  {
+    id: 'development',
+    label: 'Development',
+    icon: '</>',
+    tagline: 'Websites, apps, AI & software',
+  },
+  {
+    id: 'digital',
+    label: 'Digital',
+    icon: '📈',
+    tagline: 'Social, SEO, ads & content',
+  },
 ];
 
 export const CAPABILITIES = [
   {
     slug: 'ai-agents-automation',
     category: 'ai',
+    segment: 'development',
+    snippet: "agent.answer(question, { sources: 'your docs' })",
     title: 'AI agents & automation',
     mark: 'AI',
     tint: 'grad-1',
@@ -31,6 +41,8 @@ export const CAPABILITIES = [
   {
     slug: 'web-saas',
     category: 'web',
+    segment: 'development',
+    snippet: "app.tenant('your-brand').deploy()",
     title: 'Web apps & SaaS platforms',
     mark: 'WS',
     tint: 'grad-2',
@@ -46,6 +58,8 @@ export const CAPABILITIES = [
   {
     slug: 'mobile-apps',
     category: 'mobile',
+    segment: 'development',
+    snippet: 'sync.whenOnline(offlineQueue)',
     title: 'Mobile apps',
     mark: 'MB',
     tint: 'grad-3',
@@ -61,6 +75,8 @@ export const CAPABILITIES = [
   {
     slug: 'ecommerce',
     category: 'commerce',
+    segment: 'development',
+    snippet: 'checkout.create({ currency: visitor.locale })',
     title: 'E-commerce builds',
     mark: 'EC',
     tint: 'grad-1',
@@ -76,6 +92,7 @@ export const CAPABILITIES = [
   {
     slug: 'marketing-growth',
     category: 'marketing',
+    segment: 'digital',
     title: 'Marketing & growth',
     mark: 'MK',
     tint: 'grad-2',
