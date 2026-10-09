@@ -1,8 +1,8 @@
 import Hero from '../components/Hero';
-import FunkyMarquee from '../components/home/FunkyMarquee';
-import FunkyBentoServices from '../components/home/FunkyBentoServices';
+import WorkWall from '../components/home/WorkWall';
+import GrowthStory from '../components/home/GrowthStory';
 import FunkyProjectLab from '../components/home/FunkyProjectLab';
-import FunkyVsBoring from '../components/home/FunkyVsBoring';
+import AgencySwitch from '../components/home/AgencySwitch';
 import FunkyShowcase from '../components/home/FunkyShowcase';
 import FunkyTestimonials from '../components/home/FunkyTestimonials';
 import FunkyFAQ from '../components/home/FunkyFAQ';
@@ -35,10 +35,10 @@ export default function Home() {
       <Hero />
       
       {/* Stylish & Funky Neo-Digital Sections */}
-      <FunkyMarquee />
-      <FunkyBentoServices />
+      <WorkWall />
+      <GrowthStory />
       <FunkyProjectLab />
-      <FunkyVsBoring />
+      <AgencySwitch />
       <FunkyShowcase />
       <FunkyTestimonials />
       <FunkyFAQ />
