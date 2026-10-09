@@ -3,9 +3,9 @@ import WorkWall from '../components/home/WorkWall';
 import GrowthStory from '../components/home/GrowthStory';
 import FunkyProjectLab from '../components/home/FunkyProjectLab';
 import AgencySwitch from '../components/home/AgencySwitch';
-import FunkyShowcase from '../components/home/FunkyShowcase';
-import FunkyTestimonials from '../components/home/FunkyTestimonials';
-import FunkyFAQ from '../components/home/FunkyFAQ';
+import BusinessStreet from '../components/home/BusinessStreet';
+import AskUs from '../components/home/AskUs';
+import { homeFaqSchema } from '../data/homeFaq';
 import FunkyCTA from '../components/home/FunkyCTA';
 import SEOHead from '../components/SEOHead';
 import '../styles/home-motion.css';
@@ -29,7 +29,7 @@ export default function Home() {
         title="Codestroom — IT & Digital Marketing Agency"
         description="Codestroom offers AI systems, web & mobile app development, and digital marketing services for businesses across India, USA, Canada & Europe."
         canonicalPath="/"
-        schemas={[homeWebSiteSchema]}
+        schemas={[homeWebSiteSchema, homeFaqSchema]}
       />
       {/* Hero Section preserved intact as requested */}
       <Hero />
@@ -39,9 +39,8 @@ export default function Home() {
       <GrowthStory />
       <FunkyProjectLab />
       <AgencySwitch />
-      <FunkyShowcase />
-      <FunkyTestimonials />
-      <FunkyFAQ />
+      <BusinessStreet />
+      <AskUs />
       <FunkyCTA />
     </>
   );

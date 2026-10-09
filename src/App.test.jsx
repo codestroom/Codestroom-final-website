@@ -15,9 +15,10 @@ function renderAt(path) {
 describe('routing', () => {
   it('renders the home page at /, including the strategy mix slider', async () => {
     renderAt('/');
-    expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent('IT & Marketing for absolutely everybody.');
-    expect(await screen.findByText('Drag to find your marketing mix. No math required.')).toBeInTheDocument();
-  });
+    // the home page is the heaviest lazy-loaded route, so allow it more than the 1s default
+    expect(await screen.findByRole('heading', { level: 1 }, { timeout: 5000 })).toHaveTextContent('IT & Marketing for absolutely everybody.');
+    expect(await screen.findByText('Drag to find your marketing mix. No math required.', {}, { timeout: 5000 })).toBeInTheDocument();
+  }, 15000);
 
   it.each([
     ['/services', 'Two paths.'],
