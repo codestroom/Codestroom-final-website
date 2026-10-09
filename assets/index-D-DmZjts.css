@@ -59,10 +59,32 @@ button{ font-family: inherit; cursor: pointer; border: none; background: none; }
   transition: opacity .8s var(--ease), transform .8s var(--ease);
 }
 .reveal.in{ opacity: 1; transform: translateY(0); }
+.reveal-left{ transform: translateX(-40px); }
+.reveal-right{ transform: translateX(40px); }
+.reveal-scale{ transform: scale(.94) translateY(16px); }
+.reveal-blur{ filter: blur(10px); transform: translateY(16px); }
+.reveal.in.reveal-left, .reveal.in.reveal-right, .reveal.in.reveal-scale{ transform: none; }
+.reveal.in.reveal-blur{ filter: none; transform: none; }
+/* until the entrance settles, the reveal owns transitions (and the stagger delay) */
+.reveal:not(.settled){
+  transition: opacity .8s var(--ease) var(--rd, 0ms),
+              transform .8s var(--ease) var(--rd, 0ms),
+              filter .8s var(--ease) var(--rd, 0ms);
+}
 
 @media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1; transform:none; transition:none; }
+  .reveal, .reveal:not(.settled){ opacity:1; transform:none; filter:none; transition:none; }
   html{ scroll-behavior:auto; }
+}
+
+.sr-only{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 :focus-visible{
@@ -318,15 +340,6 @@ nav.wrap{
   width: 100% !important;
   height: 100% !important;
 }
-.blend-stage::after{
-  content:'';
-  position: absolute;
-  inset: 0;
-  /* edge fade only — a tighter vignette washes the 3d mark out to pastel */
-  background: radial-gradient(72% 72% at 50% 52%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 72%, var(--bg) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
 @keyframes logoFloat{
   0%,100%{ transform: translate(-50%,-50%) translateY(0); }
   50%{ transform: translate(-50%,-50%) translateY(-16px); }
@@ -334,7 +347,8 @@ nav.wrap{
 
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; }
-  .blend-stage{ height: 300px; order: -1; }
+  .blend-stage{ height: 300px; }
+  .hero-visual{ order: -1; }
   .hero{ padding: 140px 0 70px; }
 }
 
@@ -4341,274 +4355,6 @@ footer::after{
   .bento-cta-bar { flex-direction: column; text-align: center; }
 }
 
-/* ---------- 3. Upgraded Funky Project Lab / Synthesizer ---------- */
-.funky-lab-section {
-  padding: 120px 0;
-  position: relative;
-}
-
-.lab-presets-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 36px;
-  flex-wrap: wrap;
-}
-
-.preset-label {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-}
-
-.preset-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.preset-btn {
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-  transition: all 0.25s var(--ease);
-}
-
-.preset-btn:hover {
-  border-color: var(--purple);
-  color: var(--ink);
-  transform: translateY(-2px);
-}
-
-.preset-btn.active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-  box-shadow: 0 4px 14px rgba(18, 17, 28, 0.2);
-}
-
-.funky-lab-console {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 44px 40px;
-  box-shadow: 0 28px 64px -28px rgba(18, 17, 28, 0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-.funky-lab-console::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--grad-brand);
-}
-
-.console-hud-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 34px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.hud-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--ink-soft);
-}
-
-.hud-live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.hud-strategy-badge {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 6px 16px;
-  background: rgba(110, 34, 184, 0.08);
-  border: 1px solid rgba(110, 34, 184, 0.2);
-  border-radius: 999px;
-  color: var(--purple);
-}
-
-.funky-track-styled {
-  position: relative;
-  height: 38px;
-  background: rgba(18, 17, 28, 0.06);
-  border-radius: 999px;
-  overflow: visible;
-  cursor: pointer;
-  margin-bottom: 34px;
-}
-
-.funky-fill-organic {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, #10b981, #06b6d4);
-  border-radius: 999px 0 0 999px;
-  transition: width 0.05s ease-out;
-}
-
-.funky-fill-paid {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, var(--purple), var(--pink));
-  border-radius: 0 999px 999px 0;
-  transition: width 0.05s ease-out;
-}
-
-.funky-handle-styled {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 52px;
-  background: var(--ink);
-  color: #fff;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(18, 17, 28, 0.35);
-  cursor: grab;
-  user-select: none;
-  z-index: 5;
-  transition: transform 0.15s var(--ease), box-shadow 0.15s;
-}
-
-.funky-handle-styled:active {
-  cursor: grabbing;
-  transform: translate(-50%, -50%) scale(1.08);
-  box-shadow: 0 12px 32px rgba(18, 17, 28, 0.45);
-}
-
-.handle-glow-halo {
-  position: absolute;
-  inset: -4px;
-  border-radius: 999px;
-  background: var(--grad-brand);
-  z-index: -1;
-  opacity: 0.7;
-}
-
-.lab-pct {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.funky-labels-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.lab-label-card {
-  background: rgba(248, 249, 252, 0.7);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 20px 22px;
-}
-
-.lab-label-card .label-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.lab-label-card strong {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  color: var(--ink);
-}
-
-.lab-label-card p {
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-
-.card-organic { border-left: 4px solid #10b981; }
-.card-paid { border-left: 4px solid var(--pink); }
-
-.lab-insight-box {
-  background: linear-gradient(135deg, rgba(248, 34, 139, 0.04), rgba(110, 34, 184, 0.04));
-  border: 1px dashed rgba(110, 34, 184, 0.25);
-  border-radius: var(--radius-md);
-  padding: 24px;
-}
-
-.insight-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--purple);
-  margin-bottom: 10px;
-}
-
-.funky-readout-text {
-  font-size: 16px;
-  line-height: 1.6;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 18px;
-}
-
-.insight-sprint-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(18, 17, 28, 0.08);
-  flex-wrap: wrap;
-}
-
-.sprint-text {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--purple);
-}
-
-.sprint-btn {
-  padding: 8px 18px;
-  font-size: 13.5px;
-}
-
-@media (max-width: 720px) {
-  .funky-labels-grid { grid-template-columns: 1fr; }
-  .insight-sprint-footer { flex-direction: column; align-items: flex-start; }
-}
-
 /* ---------- 4. Funky Vs Boring Side-by-Side Reality Check ---------- */
 .funky-vs-section {
   padding: 120px 0;
@@ -6707,4 +6453,195 @@ footer::after{
   .contact-tiles{ grid-template-columns: 1fr; }
   .contact-hours{ padding: 26px 22px; }
   .contact-hours-grid{ grid-template-columns: 1fr; }
+}
+/* ==========================================================================
+   SITE-WIDE MOTION & HOVER LAYER
+   Generic rules are wrapped in :where() so they carry zero specificity:
+   any hover a component already designs for itself still wins, and this
+   layer only fills in the elements that had no hover effect at all.
+   ========================================================================== */
+
+::selection{ background: rgba(248, 34, 139, .18); color: var(--ink); }
+
+/* ---------- scroll progress ---------- */
+.scroll-progress{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1001;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(248, 34, 139, .5);
+}
+
+/* ---------- cursor ring (fine pointers only, enabled from js) ---------- */
+.cursor-ring,
+.cursor-dot{
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+  will-change: transform;
+}
+.has-cursor-ring .cursor-ring,
+.has-cursor-ring .cursor-dot{ display: block; }
+.cursor-dot{
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+.cursor-ring::before{
+  content: '';
+  position: absolute;
+  width: 34px; height: 34px;
+  left: -17px; top: -17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(110, 34, 184, .45);
+  opacity: 0;
+  transition: width .3s var(--ease), height .3s var(--ease), left .3s var(--ease), top .3s var(--ease),
+              background .3s, border-color .3s, opacity .3s, border-radius .3s;
+}
+.cursor-ring.is-visible::before{ opacity: 1; }
+.cursor-ring.is-link::before{
+  width: 54px; height: 54px; left: -27px; top: -27px;
+  background: rgba(248, 34, 139, .1);
+  border-color: rgba(248, 34, 139, .6);
+}
+.cursor-ring.is-card::before{
+  width: 76px; height: 76px; left: -38px; top: -38px;
+  background: rgba(46, 157, 244, .07);
+  border-color: rgba(46, 157, 244, .45);
+  border-style: dashed;
+}
+.cursor-ring.is-text::before{ width: 4px; height: 28px; left: -2px; top: -14px; border-radius: 2px; opacity: .4; }
+.cursor-ring.is-down::before{ width: 24px; height: 24px; left: -12px; top: -12px; background: rgba(248, 34, 139, .25); }
+
+/* ---------- route change ---------- */
+main.route-enter > *{ animation: routeIn .55s var(--ease) both; }
+@keyframes routeIn{
+  from{ opacity: 0; transform: translateY(14px); }
+  to{ opacity: 1; transform: none; }
+}
+
+/* ---------- auto scroll-in for sections without their own reveal ---------- */
+.auto-reveal{
+  opacity: 0;
+  translate: 0 44px;
+  transition: opacity .9s var(--ease), translate .9s var(--ease);
+}
+.auto-reveal.auto-in{ opacity: 1; translate: none; }
+
+/* ---------- buttons: lift, light sweep, press ---------- */
+.btn{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.4) 50%, transparent 75%);
+  transform: translateX(-130%);
+  transition: transform .7s var(--ease);
+  pointer-events: none;
+}
+.btn:hover::after{ transform: translateX(130%); }
+.btn-ghost::after,
+.btn-outline::after{ background: linear-gradient(100deg, transparent 25%, rgba(110,34,184,.12) 50%, transparent 75%); }
+.btn:active{ scale: .97; transition-duration: .08s; }
+/* the copy-email button shows a tooltip above itself, so it can't clip */
+.copy-email-btn{ overflow: visible; }
+.copy-email-btn::after{ display: none; }
+:where(.btn-ghost, .btn-outline):hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -10px rgba(110, 34, 184, .35);
+}
+
+/* ---------- generic links & controls ---------- */
+:where(a, button, [role="button"], [role="tab"]){
+  transition: color .25s var(--ease), background-color .25s var(--ease), border-color .25s var(--ease),
+              transform .25s var(--ease), translate .25s var(--ease), scale .25s var(--ease),
+              box-shadow .25s var(--ease), opacity .25s var(--ease);
+}
+:where(button, [role="tab"]):where(:not(:disabled)):hover{ translate: 0 -1px; }
+:where(button, [role="tab"]):where(:not(:disabled)):active{ scale: .97; }
+
+/* inline text links: underline draws in from the left */
+:where(main p, main li, footer, .footer-legal-link) a:where(:not(.btn):not([class*="card"]):not([class*="btn"])){
+  background-image: linear-gradient(90deg, var(--pink), var(--purple));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size .35s var(--ease), color .25s var(--ease);
+}
+:where(main p, main li, footer, .footer-legal-link) a:where(:not(.btn):not([class*="card"]):not([class*="btn"])):hover{
+  background-size: 100% 1.5px;
+  color: var(--purple);
+}
+footer .socials a:hover{ background-size: 0 0; }
+
+/* icons inside links and buttons */
+:where(a, button) svg{ transition: transform .3s var(--ease); }
+:where(a, button):hover > svg:last-child:not(:first-child){ transform: translateX(3px); }
+:where(a, button):hover > svg:only-child{ transform: scale(1.12) rotate(-6deg); }
+:where(.socials a){ display: inline-flex; }
+:where(.socials a):hover{ transform: translateY(-3px) rotate(-6deg); }
+:where(.back-to-top):hover{ transform: translateY(-4px); }
+
+/* ---------- cards: lift + glow ---------- */
+:where([class$="-card"], [class*="-card "], [class*="card-item"]):where(:not([class*="form"]):not([class*="estimator"]):not([class*="stats"]):not(.spotlight)){
+  transition: transform .35s var(--ease), translate .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+:where([class$="-card"], [class*="-card "], [class*="card-item"]):where(:not([class*="form"]):not([class*="estimator"]):not([class*="stats"]):not(.spotlight)):hover{
+  translate: 0 -5px;
+  box-shadow: 0 22px 44px -22px rgba(42, 27, 140, .35);
+  border-color: rgba(110, 34, 184, .28);
+}
+/* images inside linked cards ease in a touch */
+:where(a[class*="card"]) img{ transition: transform .6s var(--ease), filter .6s var(--ease); }
+:where(a[class*="card"]):hover img{ transform: scale(1.03); filter: saturate(1.1); }
+
+/* small pills & chips */
+/* suffix matches only, so "pillar" or "stage" don't count as pills/tags */
+:where([class$="-pill"], [class*="-pill "], [class$="-chip"], [class*="-chip "], [class$="-tag"], [class*="-tag "]){
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease), background-color .25s var(--ease);
+}
+:where([class$="-pill"], [class*="-pill "], [class$="-chip"], [class*="-chip "], [class$="-tag"], [class*="-tag "]):hover{
+  translate: 0 -2px;
+}
+
+/* ---------- form fields ---------- */
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea){
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background-color .25s var(--ease);
+}
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea):hover{
+  border-color: rgba(110, 34, 184, .4);
+}
+:where(input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, textarea):focus{
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(110, 34, 184, .12);
+  outline: none;
+}
+
+/* ---------- headings: gradient words shimmer on hover ---------- */
+:where(h1, h2) :where(em, .grad, .funky-gradient-text){ transition: filter .4s var(--ease); }
+:where(h1, h2):hover :where(em, .grad, .funky-gradient-text){ filter: brightness(1.15) saturate(1.2); }
+
+/* ---------- brand mark ---------- */
+.brand .mark{ transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.brand:hover .mark{ transform: rotate(-12deg) scale(1.12); }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  .cursor-ring, .cursor-dot{ display: none !important; }
+  main.route-enter > *{ animation: none; }
+  .auto-reveal{ opacity: 1; translate: none; transition: none; }
+  .btn::after{ display: none; }
+  :where(*):hover{ translate: none !important; }
 }
