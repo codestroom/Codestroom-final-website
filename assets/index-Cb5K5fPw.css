@@ -7165,3 +7165,167 @@ footer.ft.is-in:has(.ft-cta:hover) .ft-shape--blue { animation-play-state: pause
   .ft-word span, .ft-rocket-ship { transition: none; }
   .ft-rocket.is-launching .ft-rocket-ship { animation: none; }
 }
+/* =========================================================
+   Preloader — logo "big bang" (≈1.6s total)
+   0.00–0.55s halves fly in · 0.55s impact + shockwave · 0.6s name rises
+   1.15s screen splits along the logo diagonal · 1.75s removed
+   ========================================================= */
+.pl {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* the two background panels — split along the logo's slant on exit */
+.pl-panel {
+  position: absolute;
+  inset: -2px;
+  background: #f6f3fd;
+  transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.pl-panel--a { clip-path: polygon(0 0, 100% 0, 100% 18%, 0 82%); }
+.pl-panel--b { clip-path: polygon(0 82%, 100% 18%, 100% 100%, 0 100%); }
+.pl.is-leaving .pl-panel--a { transform: translate(-28vw, -110vh); }
+.pl.is-leaving .pl-panel--b { transform: translate(28vw, 110vh); }
+
+/* glowing seam along the cut, flashes just before the split */
+.pl-seam {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #f02f7d 25%, #6e22b8 50%, #49b4f2 75%, transparent);
+  box-shadow: 0 0 24px 4px rgba(110, 34, 184, 0.45);
+  transform: rotate(calc(-1 * var(--cut, 26deg))) scaleX(0);
+  opacity: 0;
+}
+.pl.is-leaving .pl-seam { animation: plSeam 0.45s ease-out both; }
+@keyframes plSeam {
+  0% { opacity: 1; transform: rotate(calc(-1 * var(--cut, 26deg))) scaleX(0); }
+  60% { opacity: 1; transform: rotate(calc(-1 * var(--cut, 26deg))) scaleX(1); }
+  100% { opacity: 0; transform: rotate(calc(-1 * var(--cut, 26deg))) scaleX(1); }
+}
+
+.pl-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  transition: transform 0.55s cubic-bezier(0.55, 0, 1, 0.45), opacity 0.4s ease-in;
+}
+.pl.is-leaving .pl-center { transform: scale(1.8); opacity: 0; }
+
+/* ---- the mark ---- */
+.pl-mark {
+  position: relative;
+  width: 132px;
+  height: 115px;
+  isolation: isolate;
+  animation: plImpact 0.4s cubic-bezier(0.3, 1.8, 0.5, 1) 0.52s both;
+}
+@keyframes plImpact {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18, 0.9); }
+  100% { transform: scale(1); }
+}
+.pl-half {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: multiply; /* purple where they cross — like the real logo */
+}
+.pl-half path { fill: currentColor; }
+.pl-half--pink { color: #f02f7d; animation: plPink 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+.pl-half--blue { color: #49b4f2; animation: plBlue 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+@keyframes plPink {
+  from { transform: translate(-46vw, 30vh) rotate(-200deg) scale(0.4); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: none; }
+}
+@keyframes plBlue {
+  from { transform: translate(46vw, -30vh) rotate(200deg) scale(0.4); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: none; }
+}
+
+/* shockwave ring */
+.pl-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: linear-gradient(#f6f3fd, #f6f3fd) padding-box, linear-gradient(120deg, #f02f7d, #6e22b8, #49b4f2) border-box;
+  opacity: 0;
+  z-index: -1;
+  animation: plRing 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s forwards; /* not `both`: stay hidden until impact */
+}
+@keyframes plRing {
+  0% { opacity: 0.9; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(3.4); }
+}
+
+/* sparks */
+.pl-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  border-radius: 50%;
+  background: #f02f7d;
+  opacity: 0;
+  animation: plSpark 0.65s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s forwards;
+}
+.pl-spark:nth-child(3n) { background: #49b4f2; }
+.pl-spark:nth-child(3n + 1) { background: #6e22b8; width: 6px; height: 6px; }
+@keyframes plSpark {
+  0% { opacity: 1; transform: rotate(var(--a)) translateX(30px) scale(1); }
+  100% { opacity: 0; transform: rotate(var(--a)) translateX(var(--d)) scale(0.3); }
+}
+
+/* ---- the name ---- */
+.pl-name {
+  display: flex;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #12111c;
+  overflow: hidden;
+  padding: 2px 4px;
+}
+.pl-name span {
+  display: inline-block;
+  animation: plLetter 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  animation-delay: calc(0.6s + var(--i) * 0.035s);
+}
+.pl-name span:nth-child(n + 5) {
+  background: linear-gradient(110deg, #f02f7d, #6e22b8 60%, #2e9df4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes plLetter {
+  from { transform: translateY(110%) rotate(8deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-half, .pl-mark, .pl-ring, .pl-spark, .pl-name span, .pl-seam { animation: none !important; }
+  .pl-ring, .pl-spark { display: none; }
+  .pl-panel, .pl-center { transition: opacity 0.3s; }
+  .pl.is-leaving .pl-panel { transform: none; opacity: 0; }
+}
