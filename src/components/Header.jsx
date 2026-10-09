@@ -15,6 +15,18 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const closeTimer = useRef(null);
+
+  // a short grace period so moving the mouse diagonally into the menu doesn't close it
+  const openMega = () => {
+    clearTimeout(closeTimer.current);
+    setMegaMenuOpen(true);
+  };
+  const closeMegaSoon = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMegaMenuOpen(false), 280);
+  };
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
   const location = useLocation();
 
   useEffect(() => {
@@ -52,8 +64,8 @@ export default function Header() {
                   key={link.to}
                   className="nav-item-dropdown"
                   ref={dropdownRef}
-                  onMouseEnter={() => setMegaMenuOpen(true)}
-                  onMouseLeave={() => setMegaMenuOpen(false)}
+                  onMouseEnter={openMega}
+                  onMouseLeave={closeMegaSoon}
                 >
                   <NavLink
                     to={link.to}
