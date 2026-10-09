@@ -1,7 +1,9 @@
 // Capability showcase for the Portfolio page.
 //
 // Describes what we're equipped to build per category — approach, deliverables,
-// stack. Real client results live in caseStudies.js; don't invent metrics here.
+// stack. Development items also carry plain-language fields for the portfolio
+// bento (outcome, forWho, benefits, weeks, service = contact-form preset, demo).
+// Real client results live in caseStudies.js; don't invent metrics here.
 
 // The portfolio page is split into these two segments; every capability
 // belongs to exactly one of them.
@@ -26,6 +28,18 @@ export const CAPABILITIES = [
     category: 'ai',
     segment: 'development',
     snippet: "agent.answer(question, { sources: 'your docs' })",
+    demo: 'ai',
+    outcome: 'A 24/7 assistant that knows your business.',
+    forWho: 'Clinics, schools, support teams, busy front desks',
+    benefits: [
+      'Answers customers instantly — from your own FAQs and documents',
+      'Books, forwards or escalates to a human when it should',
+      'Your data stays private, never used to train public AI',
+    ],
+    weeks: '2–6 weeks',
+    service: 'ai-services',
+    chipsLabel: 'It can handle',
+    chips: ['Opening hours', 'Fees & prices', 'Appointments', 'Order status', 'Admissions'],
     title: 'AI agents & automation',
     mark: 'AI',
     tint: 'grad-1',
@@ -43,6 +57,16 @@ export const CAPABILITIES = [
     category: 'web',
     segment: 'development',
     snippet: "app.tenant('your-brand').deploy()",
+    demo: 'web',
+    outcome: 'Portals and dashboards your team will actually use.',
+    forWho: 'Growing businesses, agencies, startups',
+    benefits: [
+      'Customer & staff logins, roles and admin panels',
+      'Live numbers on one screen instead of ten spreadsheets',
+      'Fast, secure and built to grow with you',
+    ],
+    weeks: '6–14 weeks',
+    service: 'custom-software',
     title: 'Web apps & SaaS platforms',
     mark: 'WS',
     tint: 'grad-2',
@@ -60,6 +84,16 @@ export const CAPABILITIES = [
     category: 'mobile',
     segment: 'development',
     snippet: 'sync.whenOnline(offlineQueue)',
+    demo: 'mobile',
+    outcome: 'Apps that keep working — even with no signal.',
+    forWho: 'Field teams, delivery, schools, service businesses',
+    benefits: [
+      'One app for iPhone and Android',
+      'Works offline, syncs automatically when back online',
+      'We publish it on the App Store and Play Store for you',
+    ],
+    weeks: '8–16 weeks',
+    service: 'mobile-app',
     title: 'Mobile apps',
     mark: 'MB',
     tint: 'grad-3',
@@ -77,6 +111,18 @@ export const CAPABILITIES = [
     category: 'commerce',
     segment: 'development',
     snippet: 'checkout.create({ currency: visitor.locale })',
+    demo: 'shop',
+    outcome: 'Online stores built to sell — in any currency.',
+    forWho: 'Product brands, retailers, D2C sellers',
+    benefits: [
+      'Shopify or WooCommerce, set up around your catalogue',
+      'Quick, simple checkout that turns visitors into buyers',
+      'Sell abroad with local currencies and taxes',
+    ],
+    weeks: '3–6 weeks',
+    service: 'e-commerce',
+    chipsLabel: 'Take payments with',
+    chips: ['UPI & Razorpay', 'Stripe', 'PayPal', 'Cash on delivery'],
     title: 'E-commerce builds',
     mark: 'EC',
     tint: 'grad-1',

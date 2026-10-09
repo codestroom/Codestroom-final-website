@@ -111,7 +111,7 @@ function Featured({ c, onProof }) {
   const pct = Math.round((c.before.followers / c.after.followers) * 100);
 
   return (
-    <div ref={ref} className={`res-featured ${inView ? 'is-in' : ''}`}>
+    <div ref={ref} id={c.slug} className={`res-featured ${inView ? 'is-in' : ''}`}>
       <Profile c={c} run={inView} />
 
       <div className="res-compare">
@@ -152,7 +152,7 @@ function Featured({ c, onProof }) {
 function Card({ c, index, onProof }) {
   const [ref, inView] = useInView();
   return (
-    <div ref={ref} className={`res-card ${inView ? 'is-in' : ''}`} style={{ '--d': `${index * 120}ms` }}>
+    <div ref={ref} id={c.slug} className={`res-card ${inView ? 'is-in' : ''}`} style={{ '--d': `${index * 120}ms` }}>
       <Profile c={c} run={inView} />
       <div className="res-card-body">
         <span className="res-label">{c.period}</span>

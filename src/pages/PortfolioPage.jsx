@@ -5,6 +5,8 @@ import Reveal from '../components/Reveal';
 import CTA from '../components/CTA';
 import SEOHead from '../components/SEOHead';
 import ResultsWall from '../components/work/ResultsWall';
+import LiveSites from '../components/work/LiveSites';
+import BuildBento from '../components/work/BuildBento';
 import { tiltLeave, tiltMove } from '../components/home/useSpotlight';
 import { CAPABILITIES, PORTFOLIO_SEGMENTS } from '../data/portfolioData';
 import { CASE_STUDIES, TOTAL_FOLLOWERS } from '../data/caseStudies';
@@ -48,51 +50,18 @@ const devStack = [...new Set(devItems.flatMap((c) => c.stack))];
 
 function segmentFromHash(hash) {
   const id = hash.replace('#', '');
-  return PORTFOLIO_SEGMENTS.some((s) => s.id === id) ? id : 'development';
+  if (PORTFOLIO_SEGMENTS.some((s) => s.id === id)) return id;
+  // a client's slug (e.g. linked from the home hero's proof cards) lives under Digital
+  if (CASE_STUDIES.some((c) => c.slug === id)) return 'digital';
+  return 'development';
 }
 
 function DevelopmentSegment() {
   return (
     <>
-      <div className="pf-dev-grid">
-        {devItems.map((item, i) => (
-          <Reveal
-            as="article"
-            key={item.slug}
-            delay={i * 90}
-            variant="scale"
-            className="pf-dev-card"
-            onPointerMove={tiltMove}
-            onPointerLeave={tiltLeave}
-          >
-            <div className="pf-window">
-              <div className="pf-window-bar">
-                <i /><i /><i />
-                <span>{item.slug}.js</span>
-              </div>
-              <code className="pf-window-code">
-                <span className="pf-code-prompt">›</span> {item.snippet}
-                <span className="pf-caret" />
-              </code>
-            </div>
-            <div className="pf-dev-body">
-              <span className={`pf-mark ${item.tint}`} aria-hidden="true">{item.mark}</span>
-              <h3>{item.title}</h3>
-              <p>{item.summary}</p>
-              <ul className="pf-list">
-                {item.deliverables.map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
-              <div className="pf-tags">
-                {item.stack.map((tech) => (
-                  <span key={tech} className="pf-tag">{tech}</span>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+      <LiveSites />
+
+      <BuildBento items={devItems} />
 
       <div className="pf-stack-strip" aria-label="Technologies we build with">
         <div className="pf-stack-track">

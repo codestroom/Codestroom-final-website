@@ -340,15 +340,6 @@ nav.wrap{
   width: 100% !important;
   height: 100% !important;
 }
-.blend-stage::after{
-  content:'';
-  position: absolute;
-  inset: 0;
-  /* edge fade only — a tighter vignette washes the 3d mark out to pastel */
-  background: radial-gradient(72% 72% at 50% 52%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 72%, var(--bg) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
 @keyframes logoFloat{
   0%,100%{ transform: translate(-50%,-50%) translateY(0); }
   50%{ transform: translate(-50%,-50%) translateY(-16px); }
@@ -356,7 +347,8 @@ nav.wrap{
 
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; }
-  .blend-stage{ height: 300px; order: -1; }
+  .blend-stage{ height: 300px; }
+  .hero-visual{ order: -1; }
   .hero{ padding: 140px 0 70px; }
 }
 

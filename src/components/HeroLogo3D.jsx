@@ -4,7 +4,12 @@ import { LOGO_OUTLINES } from './logoOutlines';
 
 /* The mark is two translucent rounded shapes that multiply where they cross —
    that dark middle is the overlap, not a shape of its own. Both outlines are
-   traced from the source png, so head-on this matches the logo exactly. */
+   traced from the source png, so head-on this matches the logo exactly.
+
+   The canvas is transparent so the hero gradient shows around the mark. Plain
+   multiply blending would vanish on a transparent canvas (0 × colour = 0), so
+   each slab uses SLAB_BLEND: on empty pixels it draws its own colour, on pixels
+   already covered it multiplies — the same result as multiplying onto white. */
 const SLABS = [
   { outline: LOGO_OUTLINES.blue, color: '#49b4f2', z: -38 },
   { outline: LOGO_OUTLINES.pink, color: '#f02f7d', z: 38 },
@@ -25,16 +30,37 @@ function shapeFrom(outline) {
   return new THREE.Shape(ring.map(([x, y]) => new THREE.Vector2(x, y)));
 }
 
-/* blurred ellipse the mark sits on, multiplied into the backdrop */
+// result = src × (1 − dstAlpha) + dst × src  →  src on empty pixels, src × dst on covered ones
+const SLAB_BLEND = {
+  blending: THREE.CustomBlending,
+  blendEquation: THREE.AddEquation,
+  blendSrc: THREE.OneMinusDstAlphaFactor,
+  blendDst: THREE.SrcColorFactor,
+  blendSrcAlpha: THREE.OneMinusDstAlphaFactor,
+  blendDstAlpha: THREE.SrcAlphaFactor,
+};
+
+// "destination-over": the shadow only fills pixels the mark hasn't covered
+const BEHIND_BLEND = {
+  blending: THREE.CustomBlending,
+  blendEquation: THREE.AddEquation,
+  blendSrc: THREE.OneMinusDstAlphaFactor,
+  blendDst: THREE.OneFactor,
+  blendSrcAlpha: THREE.OneMinusDstAlphaFactor,
+  blendDstAlpha: THREE.OneFactor,
+};
+
+/* blurred ellipse the mark sits on — a soft translucent indigo, so it reads on
+   whatever gradient sits behind the canvas */
 function shadowTexture() {
   const size = 256;
   const c = document.createElement('canvas');
   c.width = c.height = size;
   const ctx = c.getContext('2d');
   const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  g.addColorStop(0, '#8e86bb');
-  g.addColorStop(0.45, '#d6d3e6');
-  g.addColorStop(1, '#ffffff');
+  g.addColorStop(0, 'rgba(70, 58, 140, 0.55)');
+  g.addColorStop(0.45, 'rgba(70, 58, 140, 0.2)');
+  g.addColorStop(1, 'rgba(70, 58, 140, 0)');
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(c);
@@ -54,9 +80,7 @@ export default function HeroLogo3D() {
 
     let renderer;
     try {
-      // opaque on purpose: multiply blending needs a backdrop to darken, so the
-      // canvas paints the page background itself
-      renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     } catch {
       setFailed(true);
       return;
@@ -66,8 +90,7 @@ export default function HeroLogo3D() {
       return;
     }
 
-    const pageBg = new THREE.Color(getComputedStyle(document.body).backgroundColor || '#f8f9fc');
-    renderer.setClearColor(pageBg, 1);
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight, false);
     mount.appendChild(renderer.domElement);
@@ -91,7 +114,7 @@ export default function HeroLogo3D() {
     const shadowGeo = new THREE.PlaneGeometry(1180, 460);
     const shadowMat = new THREE.MeshBasicMaterial({
       map: shadowTex,
-      blending: THREE.MultiplyBlending,
+      ...BEHIND_BLEND,
       transparent: true,
       premultipliedAlpha: true,
       depthTest: false,
@@ -99,7 +122,7 @@ export default function HeroLogo3D() {
     });
     const shadow = new THREE.Mesh(shadowGeo, shadowMat);
     shadow.position.set(30, -470, -260);
-    shadow.renderOrder = -1;
+    shadow.renderOrder = SLABS.length; // after the slabs, so it tucks in behind them
     scene.add(shadow);
     disposables.push(shadowGeo, shadowMat, shadowTex);
 
@@ -117,10 +140,10 @@ export default function HeroLogo3D() {
 
       const material = new THREE.MeshLambertMaterial({
         color: new THREE.Color(slab.color),
-        blending: THREE.MultiplyBlending,
+        ...SLAB_BLEND,
         transparent: true,
-        premultipliedAlpha: true, // three refuses MultiplyBlending without it
-        // front faces only, no depth interaction: every slab then multiplies each
+        premultipliedAlpha: true,
+        // front faces only, no depth interaction: every slab then touches each
         // pixel exactly once, whichever way the group is turned
         side: THREE.FrontSide,
         depthTest: false,

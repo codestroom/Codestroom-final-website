@@ -1,0 +1,326 @@
+/* =========================================================
+   Live sites showcase (portfolio → Development)
+   ========================================================= */
+.lv {
+  --accent: #6e22b8;
+  --screen-h: 460px;
+  position: relative;
+  margin-bottom: 72px;
+}
+.lv-head {
+  max-width: 640px;
+  margin-bottom: 36px;
+}
+.lv-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #11743d;
+  background: #e9f9ef;
+}
+.lv-live i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: lvPulse 1.6s infinite;
+}
+@keyframes lvPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+}
+.lv-head h2 {
+  margin-top: 14px;
+  font-size: clamp(30px, 3.8vw, 48px);
+  line-height: 1.06;
+  font-weight: 700;
+}
+.lv-head p {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ---- stage ---- */
+.lv-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 44px 44px 56px;
+  border-radius: 34px;
+  background:
+    radial-gradient(70% 90% at 15% 20%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 100% 100%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 50px 90px -60px color-mix(in srgb, var(--accent) 70%, #2a1b8c);
+  transition: background 0.8s, box-shadow 0.8s;
+}
+.lv-devices {
+  position: relative;
+  animation: lvIn 0.7s var(--ease) both;
+}
+@keyframes lvIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.lv-browser {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(18, 17, 28, 0.08);
+  box-shadow: 0 40px 70px -30px rgba(18, 17, 28, 0.45);
+}
+.lv-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  background: #eef0f6;
+}
+.lv-bar > i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.lv-bar > i:nth-child(2) { background: #febc2e; }
+.lv-bar > i:nth-child(3) { background: #28c840; }
+.lv-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  padding: 4px 14px;
+  border-radius: 8px;
+  background: #fff;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.lv-url svg { color: #16a34a; }
+.lv-screen {
+  height: var(--screen-h);
+  overflow: hidden;
+  outline: none;
+}
+.lv-screen img {
+  width: 100%;
+  height: auto;
+  /* back up quickly when the cursor leaves */
+  transition: transform 1.4s var(--ease);
+}
+/* scroll through the real page on hover / keyboard focus */
+.lv-browser:hover .lv-screen img,
+.lv-screen:focus-visible img {
+  transform: translateY(calc(-100% + var(--screen-h)));
+  transition: transform 11s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+.lv-screen:focus-visible { box-shadow: inset 0 0 0 3px var(--purple); }
+.lv-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  translate: -50% 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(18, 17, 28, 0.72);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.lv-browser:hover .lv-hint { opacity: 0; }
+
+.lv-phone {
+  position: absolute;
+  right: -26px;
+  bottom: -40px;
+  width: 150px;
+  aspect-ratio: 600 / 1298;
+  padding: 7px;
+  border-radius: 28px;
+  background: #1b1838;
+  box-shadow: 0 30px 50px -18px rgba(18, 17, 28, 0.6);
+  rotate: 4deg;
+  transition: rotate 0.5s var(--ease), translate 0.5s var(--ease);
+}
+.lv-devices:hover .lv-phone { rotate: 0deg; translate: 8px 6px; }
+.lv-phone img {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  object-fit: cover;
+  object-position: top;
+}
+.lv-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  translate: -50% 0;
+  width: 44px;
+  height: 11px;
+  border-radius: 999px;
+  background: #1b1838;
+  z-index: 1;
+}
+
+/* ---- info ---- */
+.lv-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  animation: lvIn 0.7s var(--ease) 0.08s both;
+}
+.lv-cat {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  filter: saturate(1.2) brightness(0.85);
+}
+.lv-info h3 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.04;
+}
+.lv-loc { font-size: 14px; color: var(--ink-faint); }
+.lv-info > p {
+  margin-top: 6px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.lv-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 6px;
+}
+.lv-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.lv-features svg {
+  flex-shrink: 0;
+  padding: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--accent);
+}
+.lv-insta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 4px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 28px -18px rgba(214, 41, 118, 0.7);
+  transition: transform 0.3s var(--ease), border-color 0.3s;
+}
+.lv-insta:hover { transform: translateY(-2px); border-color: #d62976; }
+.lv-insta-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  color: #fff;
+  background: linear-gradient(135deg, #fdc468, #d62976 50%, #4f5bd5);
+}
+.lv-insta strong { display: block; font-size: 14px; }
+.lv-insta small { font-size: 12.5px; font-weight: 600; color: #d62976; }
+.lv-visit { margin-top: 10px; }
+
+/* ---- switcher ---- */
+.lv-switch {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.lv-thumb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 16px;
+  text-align: left;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+}
+.lv-thumb:hover { transform: translateY(-3px); }
+.lv-thumb.is-on {
+  border-color: var(--accent);
+  box-shadow: 0 16px 30px -18px var(--accent);
+}
+.lv-thumb-img {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #eef0f6;
+}
+.lv-thumb-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: saturate(0.7);
+  transition: filter 0.3s, transform 0.5s var(--ease);
+}
+.lv-thumb:hover .lv-thumb-img img,
+.lv-thumb.is-on .lv-thumb-img img { filter: none; transform: scale(1.04); }
+.lv-thumb-name { padding: 0 4px 2px; font-size: 14px; font-weight: 700; }
+.lv-thumb-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--accent);
+  animation: lvProgress 7s linear both;
+}
+@keyframes lvProgress { from { width: 0; } to { width: 100%; } }
+
+/* ---- responsive ---- */
+@media (max-width: 980px) {
+  .lv-stage { grid-template-columns: 1fr; gap: 48px; padding: 28px 24px 36px; }
+  .lv-switch { grid-template-columns: repeat(5, minmax(130px, 1fr)); overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+  .lv-switch::-webkit-scrollbar { display: none; }
+}
+@media (max-width: 560px) {
+  .lv { --screen-h: 360px; }
+  .lv-stage { padding: 18px 14px 28px; border-radius: 24px; }
+  .lv-phone { width: 104px; right: -6px; bottom: -28px; border-radius: 20px; padding: 5px; }
+  .lv-phone img { border-radius: 16px; }
+}
+/* touch screens can't hover: let people scroll the screenshot with a finger instead */
+@media (hover: none) {
+  .lv-screen { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .lv-browser:hover .lv-screen img { transform: none; }
+  .lv-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lv-devices, .lv-info, .lv-live i, .lv-thumb-progress { animation: none; }
+  .lv-browser:hover .lv-screen img { transition-duration: 0.01s; }
+}

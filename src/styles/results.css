@@ -144,6 +144,9 @@
 }
 
 /* ---- featured case ---- */
+/* clear the fixed header when linked to by #slug (e.g. from the home hero cards) */
+.res-featured, .res-card { scroll-margin-top: 110px; }
+
 .res-featured {
   display: grid;
   grid-template-columns: minmax(0, 400px) 1fr;
