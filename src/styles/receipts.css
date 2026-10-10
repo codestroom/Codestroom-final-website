@@ -1,0 +1,138 @@
+/* =========================================================
+   About: "Receipts, not vibes" — printed receipts with proof
+   ========================================================= */
+.rc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 24px;
+  align-items: start;
+}
+.rc {
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  position: relative;
+  /* each receipt is "printed": hidden above, it slides down when the grid is seen */
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(-24px);
+  transition: clip-path 0.9s steps(18, end), transform 0.9s steps(18, end);
+  transition-delay: calc(var(--i) * 0.22s);
+}
+.rc-grid.is-printed .rc { clip-path: inset(0 0 -40px 0); transform: none; }
+.rc:nth-child(3n + 1) { rotate: -1.2deg; }
+.rc:nth-child(3n + 2) { rotate: 0.8deg; margin-top: 18px; }
+.rc:nth-child(3n) { rotate: -0.4deg; margin-top: 6px; }
+
+.rc-paper {
+  position: relative;
+  padding: 22px 22px 34px;
+  font-family: var(--mono);
+  color: #2a2638;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 30%),
+    #fffdf8;
+  box-shadow: 0 22px 40px -26px rgba(42, 27, 140, 0.45), 0 2px 6px rgba(0, 0, 0, 0.05);
+  /* torn zig-zag bottom edge */
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 16px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 16px 100%;
+  transition: transform 0.35s var(--ease);
+}
+.rc:hover .rc-paper { transform: translateY(-6px) rotate(0.6deg); }
+
+.rc-top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 2px dashed rgba(42, 38, 56, 0.25);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #6b667e;
+}
+.rc-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(48px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.rc-label {
+  margin-top: 6px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.rc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 16px 0 12px;
+  padding: 12px 0;
+  border-top: 2px dashed rgba(42, 38, 56, 0.2);
+  border-bottom: 2px dashed rgba(42, 38, 56, 0.2);
+  list-style: none;
+  font-size: 13px;
+}
+.rc-lines li { display: flex; align-items: baseline; gap: 8px; }
+.rc-lines li span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rc-lines li span:last-child { font-weight: 700; white-space: nowrap; }
+/* dotted leader between item and value, like a real till receipt */
+.rc-lines li i { flex: 1; min-width: 12px; border-bottom: 2px dotted rgba(42, 38, 56, 0.25); translate: 0 -3px; }
+.rc-note { font-size: 12.5px; color: #6b667e; }
+.rc-proof {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 7px 12px;
+  border: 1.5px solid var(--ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: background 0.2s, color 0.2s;
+}
+.rc-proof:hover { color: #fff; background: var(--ink); }
+.rc-proof--none { border-style: dashed; color: #8b899e; border-color: #c9c6d6; }
+
+/* the stamp thumps down after the receipt is printed */
+.rc-stamp {
+  position: absolute;
+  top: 54px;
+  right: 16px;
+  padding: 5px 12px;
+  border: 3px solid #16a34a;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #16a34a;
+  rotate: -14deg;
+  opacity: 0;
+  mix-blend-mode: multiply;
+}
+.rc--joke .rc-stamp { color: #dc2626; border-color: #dc2626; }
+.rc-grid.is-printed .rc-stamp {
+  animation: rcStamp 0.45s cubic-bezier(0.3, 1.8, 0.5, 1) both;
+  animation-delay: calc(var(--i) * 0.22s + 1s);
+}
+@keyframes rcStamp {
+  0% { opacity: 0; transform: scale(2.4); }
+  60% { opacity: 0.9; transform: scale(0.94); }
+  100% { opacity: 0.85; transform: scale(1); }
+}
+
+@media (max-width: 980px) {
+  .rc-grid { grid-template-columns: 1fr 1fr; }
+  .rc:nth-child(n) { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .rc-grid { grid-template-columns: 1fr; gap: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rc { clip-path: none; transform: none; transition: none; }
+  .rc-stamp { opacity: 0.85; animation: none !important; }
+}

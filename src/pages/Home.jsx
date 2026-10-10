@@ -6,7 +6,7 @@ import AgencySwitch from '../components/home/AgencySwitch';
 import BusinessStreet from '../components/home/BusinessStreet';
 import AskUs from '../components/home/AskUs';
 import { homeFaqSchema } from '../data/homeFaq';
-import FunkyCTA from '../components/home/FunkyCTA';
+import SentenceForm from '../components/home/SentenceForm';
 import SEOHead from '../components/SEOHead';
 import '../styles/home-motion.css';
 
@@ -41,7 +41,7 @@ export default function Home() {
       <AgencySwitch />
       <BusinessStreet />
       <AskUs />
-      <FunkyCTA />
+      <SentenceForm />
     </>
   );
 }

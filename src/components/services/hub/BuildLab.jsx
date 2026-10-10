@@ -4,194 +4,83 @@ import Reveal from '../../Reveal';
 import HubIcon from './HubIcon';
 import { BUILD } from '../../../data/servicesHub';
 import { tiltLeave, tiltMove } from '../../home/useSpotlight';
+import { LIVE_SITES, siteShot } from '../../../data/liveSites';
+import { PLAN_SERVICES } from '../../../data/planBuilder';
 
-const CYCLE_MS = 5600;
-const STEPS = ['Plan', 'Design', 'Build', 'Launch'];
+/* Each service shows something genuine:
+   - a REAL client website we built (scrolling screenshot + phone view), or
+   - an honest "what you get" spec sheet — never a pretend product screen. */
 
-// what the build log and floating stack chips say for each preview
-const BUILD_META = {
-  static: { stack: ['React', 'Tailwind', 'CDN'], log: ['Layout sketched', 'Pages built & optimised', 'Live on yourbrand.com'] },
-  dynamic: { stack: ['Next.js', 'Postgres', 'Auth'], log: ['Database connected', 'Logins & editor added', 'Content updates instantly'] },
-  shop: { stack: ['Next.js', 'Stripe', 'Search'], log: ['Catalogue imported', 'Checkout & payments wired', 'Store is open'] },
-  shopify: { stack: ['Liquid', 'Shopify', 'Klaviyo'], log: ['Theme customised', 'Product pages styled', 'Store published'] },
-  app: { stack: ['Flutter', 'React Native', 'Firebase'], log: ['Screens designed', 'iOS & Android builds ready', 'Submitted to the stores'] },
-  software: { stack: ['React', 'Node.js', 'Postgres'], log: ['Workflow mapped', 'Boards & roles built', 'Team onboarded'] },
-  ai: { stack: ['Claude', 'OpenAI', 'Webhooks'], log: ['Knowledge connected', 'Trained on your FAQs', 'Answering customers 24/7'] },
-  erp: { stack: ['Postgres', 'Dashboards', 'Reports'], log: ['Stock, orders & invoices linked', 'Dashboards built', 'Running live'] },
-  crm: { stack: ['Pipelines', 'WhatsApp', 'Email'], log: ['Lead sources connected', 'Pipeline stages set up', 'Deals moving'] },
-  api: { stack: ['Node.js', 'Docker', 'AWS'], log: ['Endpoints designed', 'Tests passing', 'Deployed & auto-scaling'] },
+const REAL = {
+  static: { site: 'sanjhaghar', note: 'Restaurant, rooms & farm shop — fast and simple to run' },
+  dynamic: { site: 'sirjanavillage', note: 'Three languages, a 35-facility explorer and membership applications' },
 };
 
-// A block that "builds in" with a staggered delay.
-function B({ c = '', s = 0, children }) {
-  return <span className={`pv-b ${c}`} style={{ '--s': s }}>{children}</span>;
-}
+const SPEC = {
+  shop: { weeks: PLAN_SERVICES.ecommerce.weeks, stack: ['Next.js', 'Razorpay / Stripe', 'Search'], get: ['Product catalogue with search & filters', 'Cart, checkout & payments — UPI, cards, COD', 'Orders & stock dashboard', 'Shipping, tax & invoice setup'] },
+  shopify: { weeks: PLAN_SERVICES.shopify.weeks, stack: ['Shopify', 'Liquid', 'Klaviyo'], get: ['Custom Shopify theme in your brand', 'Product pages built to convert', 'Apps for reviews, upsells & WhatsApp', 'Payments, setup & launch'] },
+  app: { weeks: PLAN_SERVICES.app.weeks, stack: ['Flutter', 'React Native', 'Firebase'], get: ['Clickable design before any code', 'One app for iPhone & Android', 'Logins, notifications & offline mode', 'App Store & Play Store publishing'] },
+  software: { weeks: PLAN_SERVICES.software.weeks, stack: ['React', 'Node.js', 'Postgres'], get: ['Your workflow mapped with your team', 'Dashboards & role-based logins', 'Reports & exports', 'Training and ongoing support'] },
+  ai: { weeks: PLAN_SERVICES.ai.weeks, stack: ['Claude', 'Your documents', 'WhatsApp'], get: ['Assistant that learns your FAQs & documents', 'Answers on your website & WhatsApp, 24/7', 'Hands over to a human when needed', 'Your data stays private'] },
+  erp: { weeks: PLAN_SERVICES.erp.weeks, stack: ['Postgres', 'Dashboards', 'Reports'], get: ['Stock, purchases & sales in one place', 'Invoices and tax-ready reports', 'Multiple branches or warehouses', 'Owner dashboards'] },
+  crm: { weeks: PLAN_SERVICES.crm.weeks, stack: ['Pipelines', 'WhatsApp', 'Email'], get: ['Every lead from site, ads & WhatsApp in one list', 'Pipeline stages and reminders', 'Follow-up templates', 'Reports on what is working'] },
+  api: { weeks: null, stack: ['Node.js', 'Docker', 'Cloud'], get: ['Secure APIs for your website & apps', 'Payment, SMS & WhatsApp integrations', 'Cloud hosting that scales', 'Monitoring and backups'] },
+};
 
-function Browser({ url, children }) {
+function RealSite({ real }) {
+  const site = LIVE_SITES.find((x) => x.slug === real.site);
+  if (!site) return null;
   return (
-    <div className="pv-browser">
-      <div className="pv-bar">
-        <i /><i /><i />
-        <span className="pv-url">{url}</span>
+    <div className="blab-real">
+      <div className="blab-real-browser">
+        <div className="blab-real-bar"><i /><i /><i /><span>{site.domain}</span></div>
+        <div className="blab-real-screen">
+          <img src={siteShot(site.slug, 'desktop')} alt={`${site.name} website, built by Codestroom`} loading="lazy" />
+        </div>
       </div>
-      <div className="pv-page">{children}</div>
+      <div className="blab-real-phone" aria-hidden="true">
+        <img src={siteShot(site.slug, 'mobile')} alt="" loading="lazy" />
+      </div>
+      <a className="blab-real-badge" href={site.url} target="_blank" rel="noopener noreferrer">
+        <span className="blab-real-dot" /> Real client · {site.domain} ↗
+      </a>
     </div>
   );
 }
 
-const PREVIEWS = {
-  static: () => (
-    <Browser url="yourbrand.com">
-      <B c="pv-nav" s={0} />
-      <B c="pv-hero-title" s={1} />
-      <B c="pv-line w70" s={2} />
-      <B c="pv-line w50" s={2} />
-      <B c="pv-btn" s={3} />
-      <div className="pv-row3">
-        <B c="pv-card" s={4} /><B c="pv-card" s={5} /><B c="pv-card" s={6} />
-      </div>
-    </Browser>
-  ),
-  dynamic: () => (
-    <Browser url="yourbrand.com/dashboard">
-      <div className="pv-dyn">
-        <div className="pv-side">
-          <B c="pv-avatar" s={0} />
-          <B c="pv-line w80" s={1} /><B c="pv-line w60" s={1} /><B c="pv-line w70" s={2} />
-        </div>
-        <div className="pv-feed">
-          {[0, 1, 2].map((i) => (
-            <B key={i} c="pv-post" s={2 + i}>
-              <i className="pv-dot" /><span className="pv-line w60" /><span className="pv-tag">Edit</span>
-            </B>
-          ))}
-          <B c="pv-toast-ok" s={6}>Saved ✓</B>
+function SpecSheet({ service, spec }) {
+  return (
+    <div className="blab-sheet">
+      <div className="blab-sheet-head">
+        <span className="blab-sheet-icon"><HubIcon name={service.icon} size={22} /></span>
+        <div>
+          <small>What you get</small>
+          <strong>{service.name}</strong>
         </div>
       </div>
-    </Browser>
-  ),
-  shop: () => (
-    <Browser url="yourstore.com/shop">
-      <div className="pv-shop-head">
-        <B c="pv-line w40" s={0} />
-        <B c="pv-cart" s={7}><HubIcon name="cart" size={14} /><b>2</b></B>
-      </div>
-      <div className="pv-products">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <B key={i} c={`pv-product h${i % 3}`} s={1 + i}>
-            <span className="pv-price" />
-          </B>
+      <ul>
+        {spec.get.map((g, i) => (
+          <li key={g} style={{ '--i': i }}><span>✓</span>{g}</li>
         ))}
+      </ul>
+      <div className="blab-sheet-stack">
+        {spec.stack.map((t) => <em key={t}>{t}</em>)}
       </div>
-    </Browser>
-  ),
-  shopify: () => (
-    <Browser url="yourstore.myshopify.com">
-      <div className="pv-pdp">
-        <B c="pv-pdp-img" s={0} />
-        <div className="pv-pdp-info">
-          <B c="pv-line w80 thick" s={1} />
-          <B c="pv-line w40" s={2} />
-          <B c="pv-swatches" s={3}><i /><i /><i /></B>
-          <B c="pv-buy" s={4}>Add to cart</B>
-          <B c="pv-toast-ok" s={6}>Added ✓</B>
-        </div>
-      </div>
-    </Browser>
-  ),
-  app: () => (
-    <div className="pv-phones">
-      {['iOS', 'Android'].map((os, p) => (
-        <div key={os} className={`pv-phone ${p ? 'is-back' : ''}`}>
-          <span className="pv-notch" />
-          <B c="pv-line w50 thick" s={p * 2} />
-          <B c="pv-app-card" s={1 + p * 2} />
-          <B c="pv-app-card alt" s={2 + p * 2} />
-          <div className="pv-tabbar"><i /><i /><i /><i /></div>
-          <span className="pv-os">{os}</span>
-        </div>
-      ))}
     </div>
-  ),
-  software: () => (
-    <Browser url="app.yourcompany.io">
-      <div className="pv-kanban">
-        {['To do', 'Doing', 'Done'].map((col, c) => (
-          <div key={col} className="pv-col">
-            <B c="pv-col-title" s={c}>{col}</B>
-            {[0, 1, 2].slice(0, 3 - c).map((i) => (
-              <B key={i} c="pv-task" s={2 + c + i} />
-            ))}
-            {c === 2 && <B c="pv-task is-moving" s={6} />}
-          </div>
-        ))}
-      </div>
-    </Browser>
-  ),
-  ai: () => (
-    <div className="pv-chat">
-      <div className="pv-chat-head"><HubIcon name="bot" size={16} /> AI assistant · online</div>
-      <B c="pv-msg me" s={0}>Where is my order #1042?</B>
-      <B c="pv-msg bot" s={2}>Shipped today — arriving Friday. Tracking link sent to your email.</B>
-      <B c="pv-msg me" s={4}>Great, thanks!</B>
-      <B c="pv-flow" s={5}>
-        <span>Read message</span><HubIcon name="arrow" size={12} />
-        <span>Check order</span><HubIcon name="arrow" size={12} />
-        <span>Reply</span>
-      </B>
-    </div>
-  ),
-  erp: () => (
-    <Browser url="erp.yourcompany.io">
-      <div className="pv-kpis">
-        {['Stock', 'Orders', 'Invoices'].map((k, i) => (
-          <B key={k} c="pv-kpi" s={i}><small>{k}</small><span className="pv-line w60 thick" /></B>
-        ))}
-      </div>
-      <div className="pv-bars">
-        {[40, 65, 50, 80, 60, 92, 75].map((h, i) => (
-          <B key={i} c="pv-bar-col" s={3 + i * 0.4}><i style={{ height: `${h}%` }} /></B>
-        ))}
-      </div>
-    </Browser>
-  ),
-  crm: () => (
-    <Browser url="crm.yourcompany.io">
-      <div className="pv-pipe">
-        {['New lead', 'Qualified', 'Won'].map((col, c) => (
-          <div key={col} className="pv-col">
-            <B c="pv-col-title" s={c}>{col}</B>
-            {[0, 1].slice(0, 2 - (c === 2 ? 1 : 0)).map((i) => (
-              <B key={i} c="pv-deal" s={2 + c + i}><i className="pv-dot" /><span className="pv-line w60" /></B>
-            ))}
-          </div>
-        ))}
-        <span className="pv-deal pv-deal-fly"><i className="pv-dot" /><span className="pv-line w60" /></span>
-      </div>
-    </Browser>
-  ),
-  api: () => (
-    <div className="pv-term">
-      <div className="pv-bar"><i /><i /><i /><span className="pv-url">terminal</span></div>
-      <code>
-        <B c="pv-code" s={0}><em>$</em> curl api.yourapp.com/v1/orders</B>
-        <B c="pv-code ok" s={2}>HTTP/1.1 200 OK · 38ms</B>
-        <B c="pv-code" s={3}>{'{'}</B>
-        <B c="pv-code ind" s={3.5}>"status": <u>"paid"</u>,</B>
-        <B c="pv-code ind" s={4}>"items": <u>3</u>,</B>
-        <B c="pv-code ind" s={4.5}>"region": <u>"auto-scaled"</u></B>
-        <B c="pv-code" s={5}>{'}'}</B>
-      </code>
-    </div>
-  )
-};
+  );
+}
+
+
+const CYCLE_MS = 5600;
+const STEPS = ['Plan', 'Design', 'Build', 'Launch'];
 
 export default function BuildLab() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(true);
   const current = BUILD[active];
-  const Preview = PREVIEWS[current.preview];
-  const meta = BUILD_META[current.preview];
+  const real = REAL[current.preview];
+  const spec = SPEC[current.preview];
+  const site = real && LIVE_SITES.find((x) => x.slug === real.site);
 
   useEffect(() => {
     if (!auto) return undefined;
@@ -209,7 +98,7 @@ export default function BuildLab() {
       <div className="wrap">
         <Reveal className="path-intro path-intro--build">
           <span className="path-tag path-tag--build">Path 02 · IT Services</span>
-          <h2>Pick a service. <span>Watch it build.</span></h2>
+          <h2>Pick a service. <span>See what you get.</span></h2>
           <p>Websites, apps and software — designed, built and looked after by one engineering team.</p>
         </Reveal>
 
@@ -235,7 +124,7 @@ export default function BuildLab() {
 
           <div className="blab-stage" role="tabpanel">
             <div className="blab-stage-top">
-              <span className="blab-live"><i /> Live preview</span>
+              <span className="blab-live"><i /> {real ? 'Real client work' : 'What we build'}</span>
               <span className="blab-spec">{String(active + 1).padStart(2, '0')} / {String(BUILD.length).padStart(2, '0')}</span>
             </div>
             <div
@@ -245,17 +134,7 @@ export default function BuildLab() {
               onPointerLeave={tiltLeave}
             >
               <div className="blab-tilt">
-                <div className="blab-assemble">
-                  <Preview />
-                  <span className="blab-scan" aria-hidden="true" />
-                </div>
-                {meta.stack.map((tech, i) => (
-                  <span key={tech} className={`blab-chip chip-${i}`} aria-hidden="true">{tech}</span>
-                ))}
-                <span className="blab-stamp" aria-hidden="true">
-                  <i /> Live
-                  {[...Array(10)].map((_, i) => <b key={i} style={{ '--a': `${i * 36}deg` }} />)}
-                </span>
+                {real ? <RealSite real={real} /> : <SpecSheet service={current} spec={spec} />}
               </div>
             </div>
             <div className="blab-hud" key={`hud-${current.preview}`}>
@@ -268,11 +147,23 @@ export default function BuildLab() {
                 ))}
               </ol>
               <ul className="blab-log">
-                {meta.log.map((line, i) => (
-                  <li key={line} style={{ '--i': i }}>
-                    <span className="blab-log-tick">✓</span> {line}
-                  </li>
-                ))}
+                {site ? (
+                  <>
+                    <li style={{ '--i': 0 }}><span className="blab-log-tick">✓</span> {real.note}</li>
+                    {site.features.slice(0, 2).map((f, i) => (
+                      <li key={f} style={{ '--i': i + 1 }}><span className="blab-log-tick">✓</span> {f}</li>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <li style={{ '--i': 0 }}>
+                      <span className="blab-log-tick">◷</span>{' '}
+                      {spec.weeks ? `Typical launch: ${spec.weeks[0]}–${spec.weeks[1]} weeks` : 'Timeline quoted per project'}
+                    </li>
+                    <li style={{ '--i': 1 }}><span className="blab-log-tick">✓</span> Fixed price agreed before we start</li>
+                    <li style={{ '--i': 2 }}><span className="blab-log-tick">✓</span> Live preview link while we build</li>
+                  </>
+                )}
               </ul>
             </div>
             <div className="blab-caption" key={`cap-${current.name}`}>

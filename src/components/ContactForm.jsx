@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import Reveal from './Reveal';
+import '../styles/contact-top.css';
 
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
@@ -22,6 +22,27 @@ const SERVICE_OPTIONS = [
 
 // One-tap shortcuts for the things people ask for most. Each one just sets the
 // select below, which stays the single source of truth for the submission.
+// a friendly reaction when someone picks what they need
+const REACTIONS = {
+  'AI Services & Solutions': 'AI? Let’s put it to work for you 🤖',
+  'Website & Landing Pages': 'A website? Our favourite kind of project 🖥️',
+  'Mobile App Development (Flutter / React Native / iOS / Android)': 'An app! iPhone and Android, coming up 📱',
+  'E-Commerce Solutions (Shopify / WooCommerce)': 'Let’s get your store selling 🛒',
+  'Digital Marketing, SEO & Performance Growth': 'More customers — say no more 📈',
+  'Something else': 'No problem — tell us the situation, we’ll figure it out together 🤝',
+};
+
+// how the message box reacts as people write
+const messageMood = (len) => {
+  if (len === 0) return '';
+  if (len < 30) return 'Good start ✍️';
+  if (len < 120) return 'Nice — this helps a lot 👌';
+  return 'Perfect, that’s plenty to go on 🙌';
+};
+
+
+const CONFETTI = Array.from({ length: 28 }, (_, i) => i);
+
 const QUICK_PICKS = [
   { emoji: '🤖', label: 'AI / automation', value: 'AI Services & Solutions' },
   { emoji: '🖥️', label: 'A website', value: 'Website & Landing Pages' },
@@ -31,28 +52,8 @@ const QUICK_PICKS = [
   { emoji: '🤔', label: 'Not sure yet', value: 'Something else' },
 ];
 
-const REASSURANCE = [
-  {
-    emoji: '👋',
-    title: 'A real person replies',
-    desc: 'No bots, no auto-responders — someone on the team reads every single query.',
-  },
-  {
-    emoji: '⚡',
-    title: 'Within 48 hours',
-    desc: 'That is the promise. We do not consider a slow reply an acceptable one.',
-  },
-  {
-    emoji: '🧘',
-    title: 'Zero pressure',
-    desc: 'No aggressive follow-up calls — just a straight answer so you can decide.',
-  },
-  {
-    emoji: '🔒',
-    title: 'Your idea stays yours',
-    desc: 'Happy to sign an NDA before you tell us anything. Just ask in the message.',
-  },
-];
+const STARTERS = ['Budget around ₹…', 'Deadline: …', 'Our current website: …', 'We are a … business'];
+
 
 export default function ContactForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
@@ -65,6 +66,17 @@ export default function ContactForm() {
   // — that's what actually stops a duplicate Formspree POST and a duplicate
   // fbq('track', 'Lead') for one logical submission.
   const isSubmittingRef = useRef(false);
+  const formRef = useRef(null);
+  const messageRef = useRef(null);
+  // name + email filled (service & message are tracked through their own state)
+  const [filled, setFilled] = useState(0);
+  const [firstName, setFirstName] = useState('');
+  const countFilled = () => {
+    const f = formRef.current;
+    if (!f) return;
+    setFilled(['name', 'email'].filter((n) => f.elements[n]?.value.trim()).length);
+    setFirstName((f.elements.name?.value || '').trim().split(/\s+/)[0].slice(0, 20));
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -120,8 +132,12 @@ export default function ContactForm() {
         }
 
         form.reset();
+        // the visitor is at the submit button; bring the success message into view
+        form.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
         setSelectedService('');
         setMessageValue('');
+        setFilled(0);
+        setFirstName('');
       } else {
         setStatus('error');
       }
@@ -132,182 +148,197 @@ export default function ContactForm() {
     }
   }
 
+  const filledCount = filled + (selectedService ? 1 : 0) + (messageValue.trim() ? 1 : 0);
+  const progress = Math.round((filledCount / 4) * 100);
+
+  const addStarter = (text) => {
+    setMessageValue((m) => (m.trim() ? `${m.trimEnd()}\n${text}` : text));
+    messageRef.current?.focus();
+  };
+
   return (
-    <section className="contact-form-section" id="contact-form">
-      <div className="wrap">
-        <Reveal className="funky-section-header">
-          <div className="funky-pill-badge">
-            <span className="pulsing-neon-dot"></span>
-            <span>SEND A QUERY</span>
+    <section className="ct" id="contact-form">
+      <div className="ct-glow ct-glow--a" aria-hidden="true" />
+      <div className="ct-glow ct-glow--b" aria-hidden="true" />
+      <div className="wrap ct-layout">
+        <div className="ct-intro">
+          <span className="ct-pill"><span className="ct-pill-dot" /> Taking new projects · reply within 48h</span>
+          <h1>
+            Tell us what you need. <span>We&apos;ll handle the rest.</span>
+          </h1>
+          <p>Two minutes, no account, no sales script. A real person reads every message.</p>
+
+          <div className="ct-quick">
+            <a className="ct-quick-btn ct-quick-btn--wa" href="https://wa.me/919464529126" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">💬</span>
+              <span><strong>WhatsApp us</strong><small>Fastest reply</small></span>
+            </a>
+            <a className="ct-quick-btn" href="tel:+919464529126">
+              <span aria-hidden="true">📞</span>
+              <span><strong>+91 94645 29126</strong><small>Mon–Sat, 10–7 IST</small></span>
+            </a>
+            <a className="ct-quick-btn" href="mailto:contact@codestroom.com">
+              <span aria-hidden="true">📨</span>
+              <span><strong>contact@codestroom.com</strong><small>For briefs &amp; files</small></span>
+            </a>
           </div>
-          <h2 className="funky-title">
-            Tell us a bit about <span className="funky-gradient-text">what you need</span>.
-          </h2>
-          <p className="funky-subtitle">
-            Two minutes, five fields, no account to create. The more mess you describe, the more
-            useful our first reply will be.
-          </p>
-        </Reveal>
 
-        <div className="contact-form-grid">
-          <Reveal as="form" className="funky-form-card" onSubmit={handleSubmit} noValidate={false}>
-            <div className="form-card-glow glow-a" aria-hidden="true"></div>
-            <div className="form-card-glow glow-b" aria-hidden="true"></div>
+          <ol className="ct-next">
+            <li><b>1</b> You send this form</li>
+            <li><b>2</b> We reply within 48h with questions or a plan</li>
+            <li><b>3</b> Free call, then a fixed price — no surprises</li>
+          </ol>
+        </div>
 
-            <div className="form-card-head">
-              <span className="form-card-dots" aria-hidden="true">
-                <i></i>
-                <i></i>
-                <i></i>
-              </span>
-              <span className="form-card-title">new-project-brief.txt</span>
-              <span className="form-card-flag">⚡ 48h reply</span>
+        <form
+          className={`ct-card ${status === 'success' ? 'is-done' : ''}`}
+          onSubmit={handleSubmit}
+          onInput={countFilled}
+          ref={formRef}
+        >
+          <div className={`ct-meter ${progress === 100 ? 'is-full' : ''}`} style={{ '--p': progress / 100 }} aria-hidden="true">
+            <span className="ct-logo">
+              <svg viewBox="0 0 80 80" className="ct-ring" aria-hidden="true">
+                <defs>
+                  <linearGradient id="ct-ring-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#f8228b" />
+                    <stop offset="0.5" stopColor="#6e22b8" />
+                    <stop offset="1" stopColor="#2e9df4" />
+                  </linearGradient>
+                </defs>
+                <circle className="ct-ring-track" cx="40" cy="40" r="36" />
+                <circle className="ct-ring-fill" cx="40" cy="40" r="36" pathLength="100" />
+              </svg>
+              <img src="/assets/logo-icon.webp" alt="" width="40" height="40" />
+            </span>
+            <div className="ct-meter-text">
+              <strong>{firstName ? `Nice to meet you, ${firstName} 👋` : 'Let’s build something together'}</strong>
+              <span>{progress === 100 ? 'Ready to send ✓' : `${filledCount} of 4 done — the ring fills as you go`}</span>
+              <i style={{ '--w': `${progress}%` }} />
             </div>
+          </div>
 
-            <div className="quick-picks">
-              <span className="quick-picks-label">Quick start — what is this about?</span>
-              <div className="quick-picks-row">
-                {QUICK_PICKS.map((pick) => (
-                  <button
-                    key={pick.value}
-                    type="button"
-                    className={`quick-pick ${selectedService === pick.value ? 'is-active' : ''}`}
-                    aria-pressed={selectedService === pick.value}
-                    onClick={() => setSelectedService(pick.value)}
-                  >
-                    <span aria-hidden="true">{pick.emoji}</span> {pick.label}
-                  </button>
+          <fieldset className="ct-step">
+            <legend><b>1</b> What do you need?</legend>
+            <div className="ct-picks">
+              {QUICK_PICKS.map((pick) => (
+                <button
+                  key={pick.value}
+                  type="button"
+                  className={`ct-pick ${selectedService === pick.value ? 'is-on' : ''}`}
+                  aria-pressed={selectedService === pick.value}
+                  onClick={() => setSelectedService(pick.value)}
+                >
+                  <span className="ct-pick-emoji" aria-hidden="true">{pick.emoji}</span>
+                  {pick.label}
+                </button>
+              ))}
+            </div>
+            <div className="ct-field">
+              <label htmlFor="service">What are you looking for?</label>
+              <select
+                id="service"
+                name="service"
+                required
+                value={selectedService}
+                onChange={(e) => setSelectedService(e.target.value)}
+              >
+                <option value="" disabled>Or choose a specific service</option>
+                {SERVICE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>{option}</option>
                 ))}
-              </div>
+              </select>
             </div>
+            {selectedService && (
+              <p className="ct-react" key={selectedService}>
+                {REACTIONS[selectedService] || 'Great choice — we do a lot of this ✨'}
+              </p>
+            )}
+          </fieldset>
 
-            <div className="form-row">
-              <div className="form-field funky-field">
+          <fieldset className="ct-step">
+            <legend><b>2</b> How do we reach you?</legend>
+            <div className="ct-row">
+              <div className="ct-field">
                 <label htmlFor="name">Name</label>
-                <input id="name" name="name" type="text" required autoComplete="name" placeholder="Who are we talking to?" />
+                <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your name" />
               </div>
-              <div className="form-field funky-field">
+              <div className="ct-field">
                 <label htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" />
               </div>
             </div>
-
-            <div className="form-row">
-              <div className="form-field funky-field">
-                <label htmlFor="phone">Phone (optional)</label>
-                <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="WhatsApp works too" />
-              </div>
-              <div className="form-field funky-field">
-                <label htmlFor="service">What are you looking for?</label>
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  value={selectedService}
-                  onChange={(e) => setSelectedService(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Select a service
-                  </option>
-                  {SERVICE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div className="ct-field">
+              <label htmlFor="phone">Phone (optional)</label>
+              <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="WhatsApp number works best" />
             </div>
+          </fieldset>
 
-            <div className="form-field funky-field">
+          <fieldset className="ct-step">
+            <legend><b>3</b> Tell us a little more</legend>
+            <div className="ct-field">
               <label htmlFor="message">Your query</label>
               <textarea
                 id="message"
                 name="message"
-                rows="5"
+                rows="4"
                 required
+                ref={messageRef}
                 value={messageValue}
                 onChange={(e) => setMessageValue(e.target.value)}
-                placeholder="What are you trying to build, fix or grow? Deadlines and budget ranges are welcome but not required."
+                placeholder="What do you want to build, fix or grow?"
               />
-              <span className="field-counter">
-                {messageValue.trim().length === 0
-                  ? 'Ramble away — detail helps.'
-                  : `${messageValue.trim().length} characters of useful context 👌`}
-              </span>
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-gradient funky-submit"
-              disabled={status === 'sending'}
-            >
-              {status === 'sending' ? (
-                <>
-                  <span className="submit-spinner" aria-hidden="true"></span> Sending…
-                </>
-              ) : (
-                <>Send message <span aria-hidden="true">🚀</span></>
+              {messageMood(messageValue.trim().length) && (
+                <span className="ct-mood" key={messageMood(messageValue.trim().length)}>
+                  {messageMood(messageValue.trim().length)}
+                </span>
               )}
-            </button>
+            </div>
+            <div className="ct-starters">
+              <span>Tap to add:</span>
+              {STARTERS.map((t) => (
+                <button key={t} type="button" onClick={() => addStarter(t)}>+ {t}</button>
+              ))}
+            </div>
+          </fieldset>
 
-            <p className="form-fineprint">
-              No newsletter, no CRM drip, no reselling your details. Just a reply.
+          <button type="submit" className="ct-submit" disabled={status === 'sending'}>
+            {status === 'sending' ? (
+              <><span className="ct-plane" aria-hidden="true">✈️</span> Sending…</>
+            ) : (
+              <>Send message <span aria-hidden="true">→</span></>
+            )}
+          </button>
+          <p className="ct-fine">🔒 No newsletter, no spam, never shared. NDA on request.</p>
+
+          {status === 'error' && (
+            <p className="form-status form-status-error ct-status">
+              <span aria-hidden="true">😬</span> Something went wrong. Please email us directly at{' '}
+              <a href="mailto:contact@codestroom.com">contact@codestroom.com</a> or{' '}
+              <a href="https://wa.me/919464529126" target="_blank" rel="noopener noreferrer">WhatsApp us</a>.
             </p>
+          )}
 
-            {status === 'success' && (
-              <p className="form-status form-status-success funky-status">
-                <span aria-hidden="true">🎉</span> Message landed — we&apos;ll get back to you within
-                48 hours.
-              </p>
-            )}
-            {status === 'error' && (
-              <p className="form-status form-status-error funky-status">
-                <span aria-hidden="true">😬</span> Something went wrong. Please email us directly at{' '}
-                <a href="mailto:contact@codestroom.com">contact@codestroom.com</a>.
-              </p>
-            )}
-          </Reveal>
-
-          <Reveal className="contact-aside">
-            <div className="funky-aside-card">
-              <div className="aside-live">
-                <span className="pulsing-neon-dot"></span>
-                <span>Currently taking new projects</span>
-              </div>
-
-              <h3>What happens next</h3>
-
-              <ul className="funky-steps">
-                {REASSURANCE.map((item, idx) => (
-                  <li key={item.title}>
-                    <span className="funky-step-emoji" aria-hidden="true">
-                      {item.emoji}
-                    </span>
-                    <div>
-                      <strong>
-                        <span className="funky-step-num">0{idx + 1}</span> {item.title}
-                      </strong>
-                      <span>{item.desc}</span>
-                    </div>
-                  </li>
+          {status === 'success' && (
+            <div className="ct-success" role="status">
+              <div className="ct-confetti" aria-hidden="true">
+                {CONFETTI.map((i) => (
+                  <i key={i} style={{ '--i': i, '--x': `${(i * 37) % 100}%`, '--r': `${(i * 53) % 360}deg`, '--d': `${(i % 7) * 0.08}s` }} />
                 ))}
-              </ul>
-
-              <div className="funky-aside-direct">
-                <span className="funky-aside-direct-label">Prefer to skip the form?</span>
-                <a href="mailto:contact@codestroom.com">
-                  <span aria-hidden="true">📨</span> contact@codestroom.com
+              </div>
+              <span className="ct-success-icon" aria-hidden="true">🎉</span>
+              <h2>Message received!</h2>
+              <p>Thanks — we&apos;ll get back to you within 48 hours.</p>
+              <p className="ct-success-sub">Need it sooner? Message us on WhatsApp.</p>
+              <div className="ct-success-actions">
+                <a className="ct-quick-btn ct-quick-btn--wa" href="https://wa.me/919464529126" target="_blank" rel="noopener noreferrer">
+                  <span aria-hidden="true">💬</span><span><strong>WhatsApp us</strong></span>
                 </a>
-                <a href="https://wa.me/919464529126" target="_blank" rel="noopener noreferrer">
-                  <span aria-hidden="true">💬</span> WhatsApp us
-                </a>
-                <a href="tel:+919464529126">
-                  <span aria-hidden="true">📞</span> +91 94645 29126
-                </a>
+                <button type="button" className="ct-again" onClick={() => setStatus('idle')}>Send another</button>
               </div>
             </div>
-          </Reveal>
-        </div>
+          )}
+        </form>
       </div>
     </section>
   );

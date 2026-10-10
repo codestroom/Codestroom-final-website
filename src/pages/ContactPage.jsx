@@ -1,4 +1,3 @@
-import ContactHero from '../components/contact/ContactHero';
 import ContactDetails from '../components/ContactDetails';
 import ContactForm from '../components/ContactForm';
 import SEOHead from '../components/SEOHead';
@@ -26,7 +25,6 @@ export default function ContactPage() {
         canonicalPath="/contact"
         schemas={[contactPageSchema]}
       />
-      <ContactHero />
       <ContactForm />
       <ContactDetails />
     </>

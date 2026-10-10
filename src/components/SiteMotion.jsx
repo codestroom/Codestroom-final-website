@@ -123,7 +123,12 @@ export default function SiteMotion() {
     // sections that already run their own Reveal animations are skipped too
     const scan = () => {
       main.querySelectorAll('section').forEach((section, i) => {
-        if (i === 0 || section.dataset.autoReveal) return;
+        if (i === 0 || section.dataset.autoReveal) {
+          // hidden by an earlier run of this effect (React StrictMode runs effects
+          // twice in dev) and never revealed: this observer must take it over
+          if (section.classList.contains('auto-reveal') && !section.classList.contains('auto-in')) io.observe(section);
+          return;
+        }
         section.dataset.autoReveal = '1';
         if (section.querySelector('.reveal') || section.closest('.reveal')) return;
         const rect = section.getBoundingClientRect();
